@@ -1,0 +1,217 @@
+{
+  "now": "2026-06-15T12:00:00Z",
+  "coverage_notes": {
+    "intentionally_empty_topics": ["warehouse-v2"],
+    "matrix": {
+      "window_2h":           [0],
+      "window_1d":           [1, 2, 6],
+      "window_3d":           [3, 7, 11, 17],
+      "window_7d_boundary_inside":  [4, 8],
+      "window_8d_boundary_outside": [5, 9],
+      "window_10d":          [12, 18],
+      "window_20d":          [13, 19, 21],
+      "window_30d_boundary_inside":  [14, 22],
+      "window_31d_boundary_outside": [15, 23],
+      "window_45d":          [16, 20, 24, 25],
+      "recap_happy_path":    [0, 1, 2, 3, 4],
+      "recap_multi_person":  [2],
+      "decisions_happy_path": [6, 7, 8],
+      "decisions_superseded_pair": [7, 8],
+      "blockers_happy_path": [11, 12, 13],
+      "blockers_resolved_pair": [11, 12],
+      "actionables_happy_path": [17, 18, 19],
+      "actionables_long_pending": [20],
+      "prep_happy_path":     [21, 22],
+      "only_old_topic_warehouse": [24, 25],
+      "cross_skill_decision_and_blocker": [9],
+      "boundary_7d_inside":  [4, 8],
+      "boundary_8d_outside": [5, 9],
+      "boundary_30d_inside": [14, 22],
+      "boundary_31d_outside": [15, 23]
+    }
+  },
+  "memories": [
+    {
+      "idx": 0,
+      "content": "Deployed auth service hotfix to production. Rollout completed without errors.",
+      "occurred_at": "2026-06-15T10:00:00Z",
+      "memory_kind": "event",
+      "topic": "auth"
+    },
+    {
+      "idx": 1,
+      "content": "Auth team completed token-refresh endpoint. Added retry logic on 503 responses.",
+      "occurred_at": "2026-06-14T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "auth"
+    },
+    {
+      "idx": 2,
+      "content": "Priya and Jordan paired on the auth session-store migration. They resolved the Redis key-expiry edge case together and agreed on the TTL strategy going forward.",
+      "occurred_at": "2026-06-14T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "auth"
+    },
+    {
+      "idx": 3,
+      "content": "eventstore batch-write endpoint merged and deployed to staging.",
+      "occurred_at": "2026-06-12T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "eventstore"
+    },
+    {
+      "idx": 4,
+      "content": "auth service load test passed at 500 RPS with p99 under 80ms.",
+      "occurred_at": "2026-06-08T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "auth"
+    },
+    {
+      "idx": 5,
+      "content": "auth integration test suite refactored to use pytest fixtures.",
+      "occurred_at": "2026-06-07T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "auth"
+    },
+    {
+      "idx": 6,
+      "content": "Decided to use HMAC-SHA256 for auth token signing instead of RSA to reduce latency.",
+      "occurred_at": "2026-06-14T12:00:00Z",
+      "memory_kind": "decision",
+      "topic": "auth"
+    },
+    {
+      "idx": 7,
+      "content": "Decided to use Elasticsearch for the eventstore read path to support full-text queries.",
+      "occurred_at": "2026-06-12T12:00:00Z",
+      "memory_kind": "decision",
+      "topic": "eventstore"
+    },
+    {
+      "idx": 8,
+      "content": "Reversed the Elasticsearch decision for eventstore. Switching to Postgres FTS instead - Elasticsearch ops overhead is too high for our current team size.",
+      "occurred_at": "2026-06-08T12:00:00Z",
+      "memory_kind": "decision",
+      "topic": "eventstore"
+    },
+    {
+      "idx": 9,
+      "content": "Decided to pause the search rollout because we are blocked on the vendor contract renewal. Will revisit once legal clears the new terms.",
+      "occurred_at": "2026-06-07T12:00:00Z",
+      "memory_kind": "decision",
+      "topic": "search"
+    },
+    {
+      "idx": 10,
+      "content": "Decided billing module will use idempotency keys on all Stripe webhook handlers.",
+      "occurred_at": "2026-06-05T12:00:00Z",
+      "memory_kind": "decision",
+      "topic": "billing"
+    },
+    {
+      "idx": 11,
+      "content": "Blocked on the vendor contract for search rollout - legal review has not started yet.",
+      "occurred_at": "2026-06-12T12:00:00Z",
+      "memory_kind": "blocker",
+      "topic": "search"
+    },
+    {
+      "idx": 12,
+      "content": "Legal cleared the vendor contract. Search rollout blocker is resolved.",
+      "occurred_at": "2026-06-05T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "search"
+    },
+    {
+      "idx": 13,
+      "content": "Blocked on billing: Stripe sandbox credentials are expired, waiting on ops to rotate them.",
+      "occurred_at": "2026-05-26T12:00:00Z",
+      "memory_kind": "blocker",
+      "topic": "billing"
+    },
+    {
+      "idx": 14,
+      "content": "eventstore schema migration blocked on DBA sign-off for the new partitioning strategy.",
+      "occurred_at": "2026-05-16T12:00:00Z",
+      "memory_kind": "blocker",
+      "topic": "eventstore"
+    },
+    {
+      "idx": 15,
+      "content": "auth OAuth2 scope review is blocked on security team availability.",
+      "occurred_at": "2026-05-15T12:00:00Z",
+      "memory_kind": "blocker",
+      "topic": "auth"
+    },
+    {
+      "idx": 16,
+      "content": "Blocked on warehouse data pipeline: upstream vendor delayed the API spec by two weeks.",
+      "occurred_at": "2026-05-01T12:00:00Z",
+      "memory_kind": "blocker",
+      "topic": "warehouse"
+    },
+    {
+      "idx": 17,
+      "content": "Write unit tests for the auth token refresh endpoint.",
+      "occurred_at": "2026-06-12T12:00:00Z",
+      "memory_kind": "action",
+      "topic": "auth"
+    },
+    {
+      "idx": 18,
+      "content": "Review and merge billing webhook handler PR before end of sprint.",
+      "occurred_at": "2026-06-05T12:00:00Z",
+      "memory_kind": "action",
+      "topic": "billing"
+    },
+    {
+      "idx": 19,
+      "content": "Follow up with ops to rotate the Stripe sandbox credentials.",
+      "occurred_at": "2026-05-26T12:00:00Z",
+      "memory_kind": "action",
+      "topic": "billing"
+    },
+    {
+      "idx": 20,
+      "content": "Migrate warehouse pipeline to the new vendor API format. Still open - vendor spec not received.",
+      "occurred_at": "2026-05-01T12:00:00Z",
+      "memory_kind": "action",
+      "topic": "warehouse"
+    },
+    {
+      "idx": 21,
+      "content": "Sam (Engineering Manager) and Dana (Product Lead) meeting on Friday to align on the Q3 roadmap priorities. Dana wants to push auth and billing milestones forward.",
+      "occurred_at": "2026-05-26T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "sam"
+    },
+    {
+      "idx": 22,
+      "content": "Sam flagged that the auth latency work should be demo-ready before the Q3 kickoff. Dana will present it to stakeholders.",
+      "occurred_at": "2026-05-16T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "sam"
+    },
+    {
+      "idx": 23,
+      "content": "Sam and Dana reviewed the billing roadmap; agreed to defer payment-plan changes to Q4.",
+      "occurred_at": "2026-05-15T12:00:00Z",
+      "memory_kind": "decision",
+      "topic": "sam"
+    },
+    {
+      "idx": 24,
+      "content": "Warehouse data pipeline initial design completed. Architecture diagram shared with team.",
+      "occurred_at": "2026-05-01T12:00:00Z",
+      "memory_kind": "event",
+      "topic": "warehouse"
+    },
+    {
+      "idx": 25,
+      "content": "Decided to use Apache Parquet for warehouse storage format to enable downstream analytics.",
+      "occurred_at": "2026-05-01T12:00:00Z",
+      "memory_kind": "decision",
+      "topic": "warehouse"
+    }
+  ]
+}
