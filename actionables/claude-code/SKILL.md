@@ -1,11 +1,6 @@
 ---
 name: actionables
-description: >
-  Surface open tasks, pending items, and stated priorities: what's pending, what
-  do I need to do, what's been sitting too long, my open items, my priorities,
-  what should I work on, what's on my plate. Pick this over recap (which covers
-  the past) and over blockers (which is specifically items STUCK waiting on an
-  external dependency or person). This is for forward-looking work the user owns.
+description: "Surface open tasks, pending items, and stated priorities: what's pending, what do I need to do, what's been sitting too long, my open items, my priorities, what should I work on, what's on my plate. Pick this over recap (which covers the past) and over blockers (items STUCK waiting on someone external). This is forward-looking work the user owns."
 ---
 
 # actionables

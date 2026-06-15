@@ -1,11 +1,6 @@
 ---
 name: blockers
-description: >
-  List what is stuck and what or who each item waits on: what am I blocked on,
-  what's waiting on someone, what's stuck, what's holding things up, what's
-  waiting for approval, what's on hold. Pick this over actionables when the item
-  CANNOT proceed - it is waiting on a person, approval, or external dependency.
-  Pick this over recap (which is a past narrative, not a current status scan).
+description: "List what is stuck and what or who each item waits on: what am I blocked on, what's waiting on someone, what's stuck, what's holding things up, what's on hold. Pick this over actionables when the item CANNOT proceed - it is waiting on a person, approval, or external dependency. Pick this over recap (which is a past narrative, not a current status scan)."
 ---
 
 # blockers

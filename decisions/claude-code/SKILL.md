@@ -1,11 +1,6 @@
 ---
 name: decisions
-description: >
-  Extract the choices and calls made in a time window: what did we decide, what
-  decisions were made last week, why did we pick X, what calls did I make, what
-  did we agree on, what was resolved. Pick this over recap when the focus is
-  specifically on choices and rationale, not on general progress or narrative.
-  Pick this over blockers (which is about what is stuck, not what was decided).
+description: "Extract choices and calls made in a time window: what did we decide, what decisions were made last week, why did we pick X, what calls did I make, what was resolved. Pick this over recap when the focus is specifically on choices and rationale, not general progress. Pick this over blockers (which is about what is stuck, not what was decided)."
 ---
 
 # decisions

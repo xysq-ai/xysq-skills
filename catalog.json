@@ -1,0 +1,58 @@
+{
+  "actionables": {
+    "description": "Surface open tasks, pending items, and stated priorities: what's pending, what do I need to do, what's been sitting too long, my open items, my priorities, what should I work on, what's on my plate. Pick this over recap (which covers the past) and over blockers (items STUCK waiting on someone external). This is forward-looking work the user owns.",
+    "name": "actionables",
+    "platforms": [
+      "claude-code"
+    ],
+    "version": 1
+  },
+  "blockers": {
+    "description": "List what is stuck and what or who each item waits on: what am I blocked on, what's waiting on someone, what's stuck, what's holding things up, what's on hold. Pick this over actionables when the item CANNOT proceed - it is waiting on a person, approval, or external dependency. Pick this over recap (which is a past narrative, not a current status scan).",
+    "name": "blockers",
+    "platforms": [
+      "claude-code"
+    ],
+    "version": 1
+  },
+  "core": {
+    "description": "Connects Claude Code to xysq persistent memory. Activate this skill whenever the user asks to \"remember\", \"recall\", \"forget\", \"what did I say about\", \"save this\", \"store this\", or references past decisions, preferences, or project context. Also activate at the start of every session to pull user context, and immediately after any correction, decision, or stated preference to persist it. Do NOT activate for general coding questions that have no personal memory component. Do NOT activate for questions about xysq's own codebase unless the user explicitly asks to store or recall something.",
+    "name": "xysq",
+    "platforms": [
+      "chatgpt",
+      "claude-code",
+      "claude-desktop",
+      "codex",
+      "copilot-cli",
+      "cursor",
+      "gemini-cli",
+      "generic",
+      "windsurf"
+    ],
+    "version": 1
+  },
+  "decisions": {
+    "description": "Extract choices and calls made in a time window: what did we decide, what decisions were made last week, why did we pick X, what calls did I make, what was resolved. Pick this over recap when the focus is specifically on choices and rationale, not general progress. Pick this over blockers (which is about what is stuck, not what was decided).",
+    "name": "decisions",
+    "platforms": [
+      "claude-code"
+    ],
+    "version": 1
+  },
+  "prep": {
+    "description": "Assemble context for an upcoming meeting or call: I have a meeting about X what do I know, prep me for my call with Acme, what's the context for the topic sync, brief me before the standup, what should I know going into the design review. Pick this over recap (past window narrative) because prep is topic-scoped and forward-facing - pulls context regardless of age.",
+    "name": "prep",
+    "platforms": [
+      "claude-code"
+    ],
+    "version": 1
+  },
+  "recap": {
+    "description": "Synthesize what happened in a time window - catch me up, what did I work on, what happened this week, what's been going on, weekly recap, daily summary, what did I do yesterday. Fire even when the word recap is not used: any request for a period summary or progress narrative triggers this. Prefer this over decisions (choices only) or actionables (future tasks).",
+    "name": "recap",
+    "platforms": [
+      "claude-code"
+    ],
+    "version": 1
+  }
+}
