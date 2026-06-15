@@ -1,4 +1,4 @@
-# blockers skill eval — RESULT
+# blockers skill eval - RESULT
 
 **Overall gate: PASS**
 
@@ -33,12 +33,12 @@ Note: the resolution (idx 12) was logged EARLIER in calendar time than the block
 
 ### Grader (grounding + usefulness)
 **with-skill:**
-- GROUNDING: PASS — every claim (resolution signal, idx 11 origin, idx 12 clearance) traces to recalled memories
-- USEFULNESS: PASS — correctly outputs "No active blockers" for search, explains the resolution, offers to check other projects
+- GROUNDING: PASS - every claim (resolution signal, idx 11 origin, idx 12 clearance) traces to recalled memories
+- USEFULNESS: PASS - correctly outputs "No active blockers" for search, explains the resolution, offers to check other projects
 
 **baseline:**
-- GROUNDING: FAIL — states "legal review has not started yet" (idx 11 text) while ignoring idx 12 which says it was cleared; recommends following up with legal team despite memory showing it was already resolved
-- USEFULNESS: FAIL — misleads the user by listing a resolved blocker as active
+- GROUNDING: FAIL - states "legal review has not started yet" (idx 11 text) while ignoring idx 12 which says it was cleared; recommends following up with legal team despite memory showing it was already resolved
+- USEFULNESS: FAIL - misleads the user by listing a resolved blocker as active
 
 ### Comparator (blind A vs B)
 ```json
@@ -59,17 +59,17 @@ Note: the resolution (idx 12) was logged EARLIER in calendar time than the block
 ### Scripted assertions
 | Script | with-skill | baseline |
 |--------|-----------|---------|
-| assert_time_window (30d) | PASS | FAIL — idx 15 (auth OAuth2, 2026-05-15, 31d) and idx 16 (warehouse, 2026-05-01, 45d) leaked |
+| assert_time_window (30d) | PASS | FAIL - idx 15 (auth OAuth2, 2026-05-15, 31d) and idx 16 (warehouse, 2026-05-01, 45d) leaked |
 | assert_structure (blockers) | PASS | PASS |
 
 ### Grader (grounding + usefulness)
 **with-skill:**
-- GROUNDING: PASS — billing (idx 13, 20d), eventstore (idx 14, 30d boundary inside), both within window; search resolved and dropped; out-of-window items excluded
-- USEFULNESS: PASS — lists what is blocked and what each item waits on; resolved blocker explicitly excluded with reason
+- GROUNDING: PASS - billing (idx 13, 20d), eventstore (idx 14, 30d boundary inside), both within window; search resolved and dropped; out-of-window items excluded
+- USEFULNESS: PASS - lists what is blocked and what each item waits on; resolved blocker explicitly excluded with reason
 
 **baseline:**
-- GROUNDING: FAIL — lists idx 11 (search) as active despite idx 12 resolution; also lists idx 15 and idx 16 which are outside the 30d window
-- USEFULNESS: FAIL — 5-item list contains 1 resolved and 2 out-of-window items; user cannot trust the list
+- GROUNDING: FAIL - lists idx 11 (search) as active despite idx 12 resolution; also lists idx 15 and idx 16 which are outside the 30d window
+- USEFULNESS: FAIL - 5-item list contains 1 resolved and 2 out-of-window items; user cannot trust the list
 
 ### Comparator (blind A vs B)
 ```json
@@ -90,16 +90,16 @@ Note: the resolution (idx 12) was logged EARLIER in calendar time than the block
 ### Scripted assertions
 | Script | with-skill | baseline |
 |--------|-----------|---------|
-| assert_thin_signal | PASS — contains "I don't have much" | FAIL — no thin-signal phrase |
+| assert_thin_signal | PASS - contains "I don't have much" | FAIL - no thin-signal phrase |
 
 ### Grader (grounding + usefulness)
 **with-skill:**
-- GROUNDING: PASS — notes older warehouse blocker (idx 16) may exist, correctly does not claim it is warehouse-v2; no invented claims
-- USEFULNESS: PASS — acknowledges thin signal, outputs "No active blockers logged for warehouse-v2", offers to check actionables
+- GROUNDING: PASS - notes older warehouse blocker (idx 16) may exist, correctly does not claim it is warehouse-v2; no invented claims
+- USEFULNESS: PASS - acknowledges thin signal, outputs "No active blockers logged for warehouse-v2", offers to check actionables
 
 **baseline:**
-- GROUNDING: marginal PASS — references real memories (idx 16, idx 20) but hedges with "may be related" which is unverifiable speculation; does not fail hard on any specific unsupported claim
-- USEFULNESS: FAIL — no thin-signal acknowledgement, speculates about connection to warehouse-v2 that is not in any memory
+- GROUNDING: marginal PASS - references real memories (idx 16, idx 20) but hedges with "may be related" which is unverifiable speculation; does not fail hard on any specific unsupported claim
+- USEFULNESS: FAIL - no thin-signal acknowledgement, speculates about connection to warehouse-v2 that is not in any memory
 
 ### Comparator (blind A vs B)
 ```json
