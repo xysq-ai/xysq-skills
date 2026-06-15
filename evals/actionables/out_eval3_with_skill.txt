@@ -1,0 +1,3 @@
+I don't have anything logged specifically for a warehouse-v2 project. There is a general warehouse pipeline action (migrating to a new vendor API format, logged 45 days ago), but that's tagged as warehouse, not warehouse-v2.
+
+No open actionables logged for warehouse-v2. If you'd like, I can search by a different topic or show all open actions across all projects.

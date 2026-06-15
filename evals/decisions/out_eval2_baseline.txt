@@ -1,0 +1,3 @@
+Here is what came out of the auth work this week:
+
+The auth team completed the token-refresh endpoint with retry logic on 503 responses. Priya and Jordan resolved the Redis key-expiry edge case and agreed on a TTL strategy for the session-store migration. HMAC-SHA256 was chosen for auth token signing instead of RSA to reduce latency. The auth service also had a hotfix deployed to production without errors. Earlier in the week, the load test passed at 500 RPS with p99 under 80ms.

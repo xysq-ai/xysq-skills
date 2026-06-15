@@ -1,0 +1,5 @@
+Here is what I found about warehouse-v2:
+
+I could not find any specific information about "warehouse-v2" in memory. There is some warehouse-related context: the warehouse data pipeline initial design was completed with an architecture diagram shared with the team. The pipeline is blocked because the upstream vendor delayed the API spec by two weeks (as of May 1, 2026). The team decided to use Apache Parquet for the warehouse storage format to enable downstream analytics. There is also an open action item to migrate the warehouse pipeline to the new vendor API format, but the vendor spec has not yet been received.
+
+However, none of this is specifically labeled "warehouse-v2" - it may be referring to the same pipeline under a different name, or warehouse-v2 may be a separate initiative with no logged context.

@@ -1,0 +1,8 @@
+{
+  "winner": "A",
+  "reason": "Answer A (with-skill) correctly scopes to the billing topic and 30-day window the user asked about, presenting a clean list with dates and explicit note about the out-of-window warehouse item. Answer B (baseline) leaks the out-of-window 45-day warehouse item into the billing response without signaling it is out of scope, reducing precision. Both answers are grounded, but A's scope discipline and list format better serve the stated prompt.",
+  "grounding_a": "PASS",
+  "grounding_b": "PASS",
+  "ungrounded_claims_a": [],
+  "ungrounded_claims_b": []
+}

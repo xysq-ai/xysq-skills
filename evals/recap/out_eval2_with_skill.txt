@@ -1,0 +1,10 @@
+Recap (eventstore - this week)
+
+**What happened**
+The eventstore batch-write endpoint was merged and deployed to staging on Jun 12. The read path technology decision went through a reversal this week: Elasticsearch was initially chosen for full-text query support, then reversed in favour of Postgres FTS (Jun 8, boundary of window) because Elasticsearch's operational overhead is too high for the current team size.
+
+**Why**
+The Elasticsearch reversal was driven by ops overhead concerns - the team decided Postgres FTS was the right tradeoff given current team size. The batch-write merge was a planned milestone.
+
+**Suggested next step**
+Confirm the Postgres FTS implementation is underway following the Elasticsearch reversal, and verify the batch-write endpoint is stable in staging before promoting to production.

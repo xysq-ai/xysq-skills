@@ -1,0 +1,5 @@
+Here's a summary of your open billing action items:
+
+There are two billing-related tasks I can find. First, you need to review and merge the billing webhook handler PR before the end of the sprint - this was noted about 10 days ago. Second, you need to follow up with ops to rotate the Stripe sandbox credentials, which was logged about 20 days ago. The Stripe sandbox is currently blocked because the credentials are expired.
+
+You might also want to be aware that there's a warehouse pipeline migration item from about 45 days ago that is still open, though that's not specifically a billing item.

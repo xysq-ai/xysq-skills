@@ -1,0 +1,20 @@
+Query: "show me all current blockers across projects"
+
+Here are all the blockers I found across projects:
+
+**Search:**
+- Blocked on the vendor contract for search rollout - legal review has not started yet. (logged 2026-06-12)
+
+**Billing:**
+- Blocked on billing: Stripe sandbox credentials are expired, waiting on ops to rotate them. (logged 2026-05-26)
+
+**Eventstore:**
+- Eventstore schema migration blocked on DBA sign-off for the new partitioning strategy. (logged 2026-05-16)
+
+**Auth:**
+- Auth OAuth2 scope review is blocked on security team availability. (logged 2026-05-15)
+
+**Warehouse:**
+- Blocked on warehouse data pipeline: upstream vendor delayed the API spec by two weeks. (logged 2026-05-01)
+
+These are all the blockers logged across projects. Several of them are quite old - the warehouse and auth blockers are 45+ days old.

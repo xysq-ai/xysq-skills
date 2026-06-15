@@ -1,0 +1,11 @@
+{
+  "winner": "A",
+  "reason": "Answer A (with-skill) correctly states it has nothing for warehouse-v2 and distinguishes the general 'warehouse' topic from 'warehouse-v2'. Answer B (baseline) surfaces non-action items (a design event and an architecture decision) as if they are relevant open actions for warehouse-v2, which is misleading - it fails to deliver thin-signal and instead pads with unrelated memory_kind:event and memory_kind:decision entries. Answer B is effectively ungrounded in the actionables context because it presents events and decisions as open work items without signaling they are not actions.",
+  "grounding_a": "PASS",
+  "grounding_b": "FAIL",
+  "ungrounded_claims_a": [],
+  "ungrounded_claims_b": [
+    "There's also a design that was completed and an architecture diagram that was shared with the team - presented as relevant to open actions on warehouse-v2, but it is an event (memory_kind:event) not an action, and it is for 'warehouse' not 'warehouse-v2'",
+    "The decision was made to use Apache Parquet for the warehouse storage format - presented as relevant to open actions on warehouse-v2, but it is memory_kind:decision for 'warehouse' not 'warehouse-v2'"
+  ]
+}

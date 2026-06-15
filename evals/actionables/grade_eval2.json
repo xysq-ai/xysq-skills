@@ -1,0 +1,28 @@
+[
+  {
+    "text": "Migrate warehouse pipeline to the new vendor API format - logged 2026-05-01 (~45 days ago). Still open - vendor spec not received. Oldest open item.",
+    "passed": true,
+    "evidence": "Migrate warehouse pipeline to the new vendor API format. Still open - vendor spec not received. [memory_kind:action, mentioned_at 2026-05-01, topic:warehouse]"
+  },
+  {
+    "text": "Follow up with ops to rotate the Stripe sandbox credentials - logged 2026-05-26 (~20 days ago). Still open.",
+    "passed": true,
+    "evidence": "User plans to follow up with ops to rotate the Stripe sandbox credentials. [memory_kind:action, mentioned_at 2026-05-26, topic:billing]"
+  },
+  {
+    "text": "Review and merge billing webhook handler PR before end of sprint - logged 2026-06-05 (~10 days ago).",
+    "passed": true,
+    "evidence": "User plans to review and merge the billing webhook handler pull request before the end of the sprint. [memory_kind:action, mentioned_at 2026-06-05, topic:billing]"
+  },
+  {
+    "text": "Write unit tests for the auth token refresh endpoint - logged 2026-06-12 (~3 days ago).",
+    "passed": true,
+    "evidence": "User wants to write unit tests for the auth token refresh endpoint. [memory_kind:action, mentioned_at 2026-06-12, topic:auth]"
+  },
+  {
+    "text": "SUMMARY",
+    "grounding": "PASS",
+    "usefulness": "PASS",
+    "notes": "With-skill output correctly groups long-pending vs active, surfaces the 45-day warehouse action first with 'Oldest open item' label, and covers all 4 action items from the fixture. All claims traceable. Format matches the skill output contract."
+  }
+]

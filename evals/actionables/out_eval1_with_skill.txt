@@ -1,0 +1,9 @@
+Open actionables for billing (last 30 days):
+
+**Active**
+- **Follow up with ops to rotate the Stripe sandbox credentials** - logged 2026-05-26 (~20 days ago). Still open - Stripe sandbox is blocked until credentials are rotated.
+- **Review and merge billing webhook handler PR before end of sprint** - logged 2026-06-05 (~10 days ago).
+
+These are tasks you own and can act on. No billing actions logged in the last 30 days are long-pending (nothing over 30 days in the billing topic within this window).
+
+Note: There is a warehouse pipeline migration action logged 45 days ago that falls outside the 30-day billing window - ask for all open actions if you want to see older items.

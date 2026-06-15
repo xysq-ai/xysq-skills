@@ -1,0 +1,8 @@
+{
+  "winner": "A",
+  "reason": "Answer A (with-skill) surfaces the 45-day warehouse pipeline migration first under a 'Long-pending' header and labels it the 'Oldest open item', directly satisfying the user's intent of finding old items. It also categorizes remaining items as active, giving structural clarity. Answer B (baseline) lists the 45-day item last with only a brief aside that it 'has been open for quite a while', burying the key signal the user was asking for. Both answers are grounded, but A's prioritization and grouping are meaningfully more useful.",
+  "grounding_a": "PASS",
+  "grounding_b": "PASS",
+  "ungrounded_claims_a": [],
+  "ungrounded_claims_b": []
+}

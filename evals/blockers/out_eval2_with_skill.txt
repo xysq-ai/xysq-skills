@@ -1,0 +1,18 @@
+Query: "show me all current blockers across projects"
+
+Scanning all blocker-tagged memories. Now=2026-06-15. Applying 30d post-filter (cutoff: 2026-05-16).
+
+Resolution check: The search rollout vendor contract blocker (logged 2026-06-12) is resolved - a later memory confirms "Legal cleared the vendor contract. Search rollout blocker is resolved." This blocker is dropped.
+
+Active blockers (within 30 days, unresolved):
+
+- **Billing: Stripe sandbox credentials expired** - Waiting on ops to rotate the expired Stripe sandbox credentials. Since 2026-05-26 (~20 days).
+
+- **Eventstore schema migration** - Waiting on DBA sign-off for the new partitioning strategy. Since 2026-05-16 (~30 days).
+
+Resolved (not listed as active):
+- Search rollout / vendor contract blocker: resolved - legal cleared the vendor contract.
+
+Out of window (older than 30 days, not listed):
+- Warehouse data pipeline blocker (2026-05-01, ~45 days old).
+- Auth OAuth2 scope review blocker (2026-05-15, ~31 days old).

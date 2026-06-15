@@ -1,0 +1,3 @@
+Looking at your history for warehouse-v2 actions... I can see there are some warehouse-related items. There's a warehouse pipeline migration task from about 45 days ago. There's also a design that was completed and an architecture diagram that was shared with the team. The decision was made to use Apache Parquet for the warehouse storage format.
+
+I'm not sure I have anything specifically labeled warehouse-v2 though - this all seems to be about the general warehouse project. Let me know if you want me to look more broadly.

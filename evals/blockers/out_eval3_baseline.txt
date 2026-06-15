@@ -1,0 +1,7 @@
+Query: "is anything blocking the warehouse-v2 work"
+
+Looking for blockers related to warehouse-v2...
+
+I found some warehouse-related memories but nothing specifically tagged as warehouse-v2. There is a general warehouse data pipeline blocker - the upstream vendor delayed the API spec by two weeks (logged around 2026-05-01). There is also an action item to migrate the warehouse pipeline to the new vendor API format (still open - vendor spec not received).
+
+It's possible these are related to warehouse-v2, but I cannot confirm that specifically. You may want to check if the vendor spec has been received since these were logged about 45 days ago.

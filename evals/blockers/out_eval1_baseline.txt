@@ -1,0 +1,11 @@
+Query: "what is blocking the search rollout"
+
+Here is a summary of what I found about blockers on the search rollout:
+
+The search rollout is currently blocked on the vendor contract renewal. Legal review has not started yet. The decision was made to pause the search rollout until legal clears the new contract terms.
+
+**Search rollout blocker:**
+- Blocked on the vendor contract for search rollout - legal review has not started yet. (logged ~3 days ago, 2026-06-12)
+- Background: The team decided to pause the search rollout because of this vendor contract block and planned to revisit once legal clears the new terms (2026-06-07).
+
+You may want to follow up with the legal team to check the status of the vendor contract review.

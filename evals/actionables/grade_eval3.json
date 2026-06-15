@@ -1,0 +1,18 @@
+[
+  {
+    "text": "I don't have anything logged specifically for a warehouse-v2 project.",
+    "passed": true,
+    "evidence": "fixture coverage_notes lists 'warehouse-v2' in intentionally_empty_topics. No recalled memory has topic:warehouse-v2."
+  },
+  {
+    "text": "There is a general warehouse pipeline action (migrating to a new vendor API format, logged 45 days ago), but that's tagged as warehouse, not warehouse-v2.",
+    "passed": true,
+    "evidence": "Migrate warehouse pipeline to the new vendor API format. Still open - vendor spec not received. [memory_kind:action, mentioned_at 2026-05-01, topic:warehouse]"
+  },
+  {
+    "text": "SUMMARY",
+    "grounding": "PASS",
+    "usefulness": "PASS",
+    "notes": "Correctly identifies no warehouse-v2 specific content and says so plainly. Distinguishes 'warehouse' from 'warehouse-v2'. Offers to search further. Thin-signal response matches skill contract."
+  }
+]

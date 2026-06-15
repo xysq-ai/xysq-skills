@@ -1,0 +1,8 @@
+{
+  "winner": "A",
+  "reason": "Both answers correctly identify no warehouse-v2 content. Answer A (with-skill) is tighter: it leads with the thin-signal acknowledgment and offers to search a related term per recipe, with a brief parenthetical noting what general warehouse context does exist. Answer B (baseline) spends more words listing warehouse pipeline details that may or may not be relevant to the meeting - the Parquet format decision, the vendor spec delay, the open migration action - without clarity on whether any of this applies to warehouse-v2. For a thin-signal topic, less padding is better; A communicates the absence more cleanly while still being helpful.",
+  "grounding_a": "PASS",
+  "grounding_b": "PASS",
+  "ungrounded_claims_a": [],
+  "ungrounded_claims_b": []
+}

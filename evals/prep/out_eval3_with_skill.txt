@@ -1,0 +1,3 @@
+I don't have anything logged on warehouse-v2. Want me to search a related term?
+
+(The vault has some general warehouse pipeline context - an initial design was completed and an API spec delay was logged - but nothing specifically tagged or named "warehouse-v2". If the meeting is about a v2 initiative specifically, I don't have context on it.)

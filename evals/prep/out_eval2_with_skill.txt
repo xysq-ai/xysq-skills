@@ -1,0 +1,15 @@
+Briefing for your meeting with Dana:
+
+**Background**
+Dana is the Product Lead. She works closely with Sam (Engineering Manager) on Q3 roadmap planning. Dana has been pushing to accelerate auth and billing milestones, and she is the one presenting the auth latency work to stakeholders at the Q3 kickoff.
+
+**Recent activity**
+Dana and Sam met to align on Q3 roadmap priorities. Dana wants to push auth and billing milestones forward. Sam flagged that the auth latency work must be demo-ready before the Q3 kickoff - Dana will be presenting that work to stakeholders. On the billing side, Dana and Sam reviewed the billing roadmap together and agreed to defer payment-plan changes to Q4.
+
+**Open threads**
+- Auth latency demo readiness: Dana is presenting this to stakeholders at the Q3 kickoff, so she has a direct stake in whether it is on track.
+- Auth and billing milestone acceleration: Dana flagged she wants these pushed forward - it's worth checking which milestones specifically are at risk or need support.
+
+**Anything needing a decision**
+- Confirm the auth latency demo is on track for the Q3 kickoff - Dana owns the stakeholder presentation.
+- The Q4 deferral of billing payment-plan changes was agreed with Sam; confirm this is still the plan or if Dana wants to revisit the timeline.

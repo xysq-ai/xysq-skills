@@ -1,0 +1,48 @@
+[
+  {
+    "text": "Sam is the Engineering Manager. Dana is the Product Lead.",
+    "passed": true,
+    "evidence": "Sam (Engineering Manager) and Dana (Product Lead) meet to align on Q3 roadmap priorities"
+  },
+  {
+    "text": "Sam and Dana met to sync on Q3 roadmap priorities, with Dana pushing to accelerate auth and billing milestones.",
+    "passed": true,
+    "evidence": "Sam (Engineering Manager) and Dana (Product Lead) meet to align on Q3 roadmap priorities | Dana wants to push auth and billing milestones forward."
+  },
+  {
+    "text": "Sam flagged that the auth latency work needs to be demo-ready before the Q3 kickoff.",
+    "passed": true,
+    "evidence": "Sam flagged that the auth latency work should be demo-ready before the Q3 kickoff."
+  },
+  {
+    "text": "Dana will present that work to stakeholders.",
+    "passed": true,
+    "evidence": "Dana will present the auth latency work to stakeholders."
+  },
+  {
+    "text": "Sam and Dana reviewed the billing roadmap and agreed to defer payment-plan changes to Q4.",
+    "passed": true,
+    "evidence": "Sam and Dana reviewed the billing roadmap and agreed to defer payment-plan changes to Q4."
+  },
+  {
+    "text": "Auth latency demo readiness for the Q3 kickoff - Sam raised this as a requirement.",
+    "passed": true,
+    "evidence": "Sam flagged that the auth latency work should be demo-ready before the Q3 kickoff."
+  },
+  {
+    "text": "Confirm whether auth latency work is on track to be demo-ready before the Q3 kickoff.",
+    "passed": true,
+    "evidence": "Sam flagged that the auth latency work should be demo-ready before the Q3 kickoff."
+  },
+  {
+    "text": "The billing payment-plan changes were deferred to Q4 - confirm this is still the agreed plan or whether circumstances have changed.",
+    "passed": true,
+    "evidence": "Sam and Dana agreed to defer payment-plan changes to Q4."
+  },
+  {
+    "text": "SUMMARY",
+    "grounding": "PASS",
+    "usefulness": "PASS",
+    "notes": "All claims are fully traceable to recalled Sam-topic memories. Output is structured as a prep briefing with four sections and ends with concrete decision items. No hallucinations. Correctly topic-scoped (no time filter), including idx 23 context (31d old) which is appropriately surfaced for a meeting briefing."
+  }
+]

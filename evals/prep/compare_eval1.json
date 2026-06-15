@@ -1,0 +1,8 @@
+{
+  "winner": "A",
+  "reason": "Answer A (with-skill) focuses exclusively on Sam-relevant context: his role, the Q3 roadmap alignment, the auth latency demo requirement, and the billing deferral decision - then closes with concrete decision items. Answer B (baseline) includes the same Sam/Dana memories but pads the output with unrelated auth hotfix, token-refresh endpoint, load test, and eventstore content that has no bearing on a 1:1 with Sam. The extra noise dilutes the briefing and forces the user to filter. Both answers are grounded, but A is more relevant and useful by a clear margin.",
+  "grounding_a": "PASS",
+  "grounding_b": "PASS",
+  "ungrounded_claims_a": [],
+  "ungrounded_claims_b": []
+}

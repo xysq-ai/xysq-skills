@@ -1,0 +1,33 @@
+[
+  {
+    "text": "Dana is the Product Lead. She works closely with Sam (Engineering Manager) on Q3 roadmap planning.",
+    "passed": true,
+    "evidence": "Sam (Engineering Manager) and Dana (Product Lead) meet to align on Q3 roadmap priorities."
+  },
+  {
+    "text": "Dana has been pushing to accelerate auth and billing milestones.",
+    "passed": true,
+    "evidence": "Dana wants to push auth and billing milestones forward."
+  },
+  {
+    "text": "She is the one presenting the auth latency work to stakeholders at the Q3 kickoff.",
+    "passed": true,
+    "evidence": "Dana will present the auth latency work to stakeholders | When: Q3 kickoff."
+  },
+  {
+    "text": "Dana and Sam met to align on Q3 roadmap priorities.",
+    "passed": true,
+    "evidence": "Sam (Engineering Manager) and Dana (Product Lead) meet to align on Q3 roadmap priorities."
+  },
+  {
+    "text": "Dana and Sam reviewed the billing roadmap together and agreed to defer payment-plan changes to Q4.",
+    "passed": true,
+    "evidence": "Sam and Dana reviewed the billing roadmap and agreed to defer payment-plan changes to Q4."
+  },
+  {
+    "text": "SUMMARY",
+    "grounding": "PASS",
+    "usefulness": "PASS",
+    "notes": "All claims traceable to recalled Sam-topic memories. Correctly surfaces Dana's role, agenda drivers, and open items. Structured as a proper prep briefing. No hallucinations."
+  }
+]

@@ -1,0 +1,11 @@
+Open actionables (all, oldest first):
+
+**Long-pending (logged more than a week ago, no resolution signal)**
+- **Migrate warehouse pipeline to the new vendor API format** - logged 2026-05-01 (~45 days ago). Still open - vendor spec not received. Oldest open item.
+- **Follow up with ops to rotate the Stripe sandbox credentials** - logged 2026-05-26 (~20 days ago). Still open.
+- **Review and merge billing webhook handler PR before end of sprint** - logged 2026-06-05 (~10 days ago).
+
+**Active (logged recently)**
+- **Write unit tests for the auth token refresh endpoint** - logged 2026-06-12 (~3 days ago).
+
+These are tasks you own and can act on. For items stuck waiting on someone else (e.g. vendor spec, ops rotation), ask for blockers instead.

@@ -1,0 +1,23 @@
+[
+  {
+    "text": "I don't have anything logged on warehouse-v2.",
+    "passed": true,
+    "evidence": "fixture_vault.json coverage_notes.intentionally_empty_topics: ['warehouse-v2']. No memories with topic or content matching 'warehouse-v2' exist in the bank."
+  },
+  {
+    "text": "The vault has some general warehouse pipeline context - an initial design was completed and an API spec delay was logged.",
+    "passed": true,
+    "evidence": "Warehouse data pipeline initial design completed (idx 24). Blocked on warehouse data pipeline: upstream vendor delayed the API spec by two weeks (idx 16)."
+  },
+  {
+    "text": "nothing specifically tagged or named 'warehouse-v2'",
+    "passed": true,
+    "evidence": "No idx in bank has topic:warehouse-v2 or content containing 'warehouse-v2'."
+  },
+  {
+    "text": "SUMMARY",
+    "grounding": "PASS",
+    "usefulness": "PASS",
+    "notes": "Correctly identifies no warehouse-v2 context, offers to search a related term per recipe. Thin-signal response is appropriate and per-recipe. No invented detail."
+  }
+]

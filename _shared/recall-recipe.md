@@ -21,6 +21,11 @@ Translate the user's phrase into both the query wording and the post-filter boun
 When a `memory_kind:*` tag keys this skill, pass it in `tags` to get the
 pre-classified slice; fall back to untagged semantic recall if it yields too little.
 
+## Deduplicate before rendering
+Recall may return the same underlying fact as several near-identical chunks (the
+engine expands one memory into multiple entity-phrase variants). Collapse these to
+one item before rendering - never show the same fact twice.
+
 ## Clarify, don't re-query
 If recall is empty or low-confidence for an ambiguous prompt, ASK the user a
 clarifying question. Do not silently re-run recall with reworded queries hoping

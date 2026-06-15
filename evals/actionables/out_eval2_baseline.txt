@@ -1,0 +1,5 @@
+Here are all the open tasks I can find in your history:
+
+You have a few things that look like they need attention. You wanted to write unit tests for the auth token refresh endpoint (about 3 days ago). You also need to review and merge the billing webhook handler PR before end of sprint (about 10 days ago). There's also a follow-up needed with ops to rotate the Stripe sandbox credentials (about 20 days ago). And there's a warehouse pipeline migration to the new vendor API format that has been sitting open since about 45 days ago - the vendor spec still hasn't been received.
+
+That last one (the warehouse pipeline migration) has been open for quite a while without any movement.

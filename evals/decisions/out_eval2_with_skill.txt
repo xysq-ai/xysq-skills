@@ -1,0 +1,7 @@
+Decisions (auth work - this week, window: 2026-06-08 to 2026-06-15):
+
+1. **Decision** - Use HMAC-SHA256 for auth token signing instead of RSA.
+   **Why** - To reduce latency.
+   **Who** - Solo call (user), logged 2026-06-14.
+
+No other auth decisions are logged within the past 7 days.

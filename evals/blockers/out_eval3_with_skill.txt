@@ -1,0 +1,9 @@
+Query: "is anything blocking the warehouse-v2 work"
+
+I searched for blockers tagged with warehouse-v2 and found nothing specific to that project.
+
+I don't have much on warehouse-v2 blockers specifically. There is an older warehouse data pipeline blocker (logged ~45 days ago) about an upstream vendor delaying an API spec, but that predates any warehouse-v2 context and may not be the same project.
+
+No active blockers logged for warehouse-v2.
+
+Would you like me to check actionables for warehouse-v2 instead? There may be stalled items there without an explicit blocker tag.

@@ -1,0 +1,17 @@
+Query: "what is blocking the search rollout"
+
+Recall returned memories related to the search rollout blockers. Key memories surfaced:
+
+- idx 11 (blocker, 2026-06-12): "Blocked on the vendor contract for search rollout - legal review has not started yet." [memory_kind:blocker, topic:search]
+- idx 12 (event, 2026-06-05): "Legal cleared the vendor contract. Search rollout blocker is resolved." [memory_kind:event, topic:search]
+- idx 9 (decision, 2026-06-07): "Decided to pause the search rollout because we are blocked on the vendor contract renewal. Will revisit once legal clears the new terms." [memory_kind:decision, topic:search]
+
+Resolution check: Memory idx 12 contains an explicit resolution signal - "Search rollout blocker is resolved." This clears the blocker logged in idx 11.
+
+Active blockers for search rollout:
+
+No active blockers logged for the search rollout.
+
+The vendor contract blocker (logged 2026-06-12) has a resolution signal: legal cleared the vendor contract and the blocker is marked resolved (logged 2026-06-05). The search rollout can proceed.
+
+Note: If other project blockers are of interest, I can check those separately - there are active blockers in billing and eventstore that are unrelated to search.

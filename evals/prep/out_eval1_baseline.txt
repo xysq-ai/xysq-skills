@@ -1,0 +1,9 @@
+Here is what I found about Sam from memory:
+
+Sam (Engineering Manager) and Dana (Product Lead) met to align on Q3 roadmap priorities. Dana wants to push auth and billing milestones forward. Sam flagged that the auth latency work should be demo-ready before the Q3 kickoff, and Dana will present it to stakeholders. Sam and Dana also reviewed the billing roadmap and agreed to defer payment-plan changes to Q4.
+
+There was also activity around auth: the auth service had a hotfix deployed to production today, a token-refresh endpoint was completed with retry logic, a load test passed at 500 RPS with p99 under 80ms, and HMAC-SHA256 was chosen for auth token signing instead of RSA to reduce latency. An auth unit test action item is also open.
+
+On the eventstore side: the batch-write endpoint was merged and deployed to staging. A decision was made and then reversed on using Elasticsearch for the read path - the team switched to Postgres FTS instead. A schema migration is still blocked on DBA sign-off.
+
+Summary: Sam is focused on Q3 roadmap priorities with Dana, particularly auth latency demo readiness and billing milestones.

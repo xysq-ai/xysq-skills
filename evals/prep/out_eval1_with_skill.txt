@@ -1,0 +1,15 @@
+Briefing for your 1:1 with Sam:
+
+**Background**
+Sam is the Engineering Manager. Dana is the Product Lead. The two of them have been working together on Q3 roadmap alignment - Sam and Dana met to sync on Q3 roadmap priorities, with Dana pushing to accelerate auth and billing milestones.
+
+**Recent activity**
+Sam flagged that the auth latency work needs to be demo-ready before the Q3 kickoff. Dana will present that work to stakeholders. On the billing side, Sam and Dana reviewed the billing roadmap and agreed to defer payment-plan changes to Q4.
+
+**Open threads**
+- Auth latency demo readiness for the Q3 kickoff - Sam raised this as a requirement, so it's worth confirming the current status of that work going into this 1:1.
+- Q3 roadmap priorities alignment (auth and billing milestones) - Dana wanted to push these forward; the 1:1 with Sam is a good place to confirm where things stand.
+
+**Anything needing a decision**
+- Confirm whether auth latency work is on track to be demo-ready before the Q3 kickoff, as Sam flagged this directly.
+- The billing payment-plan changes were deferred to Q4 - confirm this is still the agreed plan or whether circumstances have changed.

@@ -1,0 +1,13 @@
+Recap (auth - this week)
+
+**What happened**
+The auth service hotfix was deployed to production this morning (Jun 15), completing without errors. Yesterday (Jun 14), the auth team completed the token-refresh endpoint and added retry logic on 503 responses. Also on Jun 14, Priya and Jordan paired on the auth session-store migration - they resolved the Redis key-expiry edge case together and agreed on the TTL strategy going forward. Earlier in the week (Jun 12), a task was logged to write unit tests for the token refresh endpoint. At the start of the window (Jun 8), the auth service load test passed at 500 RPS with p99 under 80ms.
+
+**Why**
+The decision to use HMAC-SHA256 for auth token signing instead of RSA was made on Jun 14 to reduce latency.
+
+**Who was involved**
+Priya and Jordan collaborated on the session-store migration and the Redis TTL work.
+
+**Suggested next step**
+Write unit tests for the auth token refresh endpoint - this was logged as an open action item on Jun 12 and has not been marked complete.

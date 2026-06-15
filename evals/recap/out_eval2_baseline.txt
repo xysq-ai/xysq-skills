@@ -1,0 +1,7 @@
+Here's what I found on the eventstore project:
+
+The eventstore batch-write endpoint was merged and deployed to staging around June 12. There was a significant decision flip on the read path: originally Elasticsearch was chosen to support full-text queries, but this was reversed and Postgres FTS was chosen instead because Elasticsearch ops overhead was deemed too high for the current team size.
+
+There's also an older blocker - the schema migration has been waiting on DBA sign-off for a new partitioning strategy since mid-May.
+
+Overall the project is moving forward on writes (batch-write merged) but the read path technology just changed, and there's still a pending schema migration that needs DBA approval.

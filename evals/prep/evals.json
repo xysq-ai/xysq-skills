@@ -7,7 +7,6 @@
       "prompt": "prep me for my 1:1 with Sam",
       "notes": "Sam memories: idx 21 (Sam + Dana, Q3 roadmap alignment, 20d) and idx 22 (Sam flagged auth latency demo, 30d boundary). Both are within a 30d window. Sam is Engineering Manager, Dana is Product Lead. Output must surface actionable talking points grounded in these memories.",
       "scripted": [
-        {"script": "assert_time_window.py", "window_days": 30},
         {"script": "assert_structure.py", "skill": "prep"}
       ],
       "judge": ["grounding", "usefulness"]

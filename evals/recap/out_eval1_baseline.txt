@@ -1,0 +1,9 @@
+Here's a summary of the auth work based on what's in memory:
+
+The auth service has been active recently. A hotfix was deployed to production on June 15 with no rollout errors. Before that, the token-refresh endpoint was completed with retry logic added for 503 responses. Priya and Jordan worked together on the session-store migration, resolving a Redis key-expiry edge case and settling on a TTL strategy.
+
+There was also a decision to switch from RSA to HMAC-SHA256 for token signing to cut latency. A load test at 500 RPS showed p99 under 80ms. The integration test suite was refactored to use pytest fixtures.
+
+There's a pending action to write unit tests for the token refresh endpoint. There's also an older blocker around an OAuth2 scope review that was waiting on security team availability.
+
+Next steps would be around completing the unit tests and following up on any outstanding scope reviews.

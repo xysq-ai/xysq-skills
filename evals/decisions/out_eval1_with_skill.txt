@@ -1,0 +1,12 @@
+Decisions (eventstore project - all time):
+
+1. **Decision** - Switched to Postgres FTS for the eventstore read path, reversing the Elasticsearch decision.
+   **Why** - Elasticsearch ops overhead is too high for the current team size.
+   **Who** - Solo call (user).
+   *(This decision supersedes item 2 below.)*
+
+2. **Decision** - [SUPERSEDED] Use Elasticsearch for the eventstore read path to support full-text queries.
+   **Why** - Required full-text query support on the read path.
+   **Who** - Solo call (user). Later reversed by the Postgres FTS decision above.
+
+(Most recent first. The Elasticsearch decision was later reversed; Postgres FTS is the current choice for the eventstore read path.)

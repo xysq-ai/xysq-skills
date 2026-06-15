@@ -1,0 +1,28 @@
+[
+  {
+    "text": "Follow up with ops to rotate the Stripe sandbox credentials - logged 2026-05-26 (~20 days ago). Still open - Stripe sandbox is blocked until credentials are rotated.",
+    "passed": true,
+    "evidence": "User plans to follow up with ops to rotate the Stripe sandbox credentials. [memory_kind:action, mentioned_at 2026-05-26, topic:billing]"
+  },
+  {
+    "text": "Review and merge billing webhook handler PR before end of sprint - logged 2026-06-05 (~10 days ago).",
+    "passed": true,
+    "evidence": "User plans to review and merge the billing webhook handler pull request before the end of the sprint. [memory_kind:action, mentioned_at 2026-06-05, topic:billing]"
+  },
+  {
+    "text": "No billing actions logged in the last 30 days are long-pending (nothing over 30 days in the billing topic within this window).",
+    "passed": true,
+    "evidence": "Billing actions (idx 18 and idx 19) have mentioned_at of 2026-06-05 and 2026-05-26 respectively, both within 30 days of 2026-06-15. Warehouse action (idx 20) is on 2026-05-01 which is outside 30 days and not a billing topic."
+  },
+  {
+    "text": "There is a warehouse pipeline migration action logged 45 days ago that falls outside the 30-day billing window.",
+    "passed": true,
+    "evidence": "Migrate warehouse pipeline to the new vendor API format. Still open - vendor spec not received. [memory_kind:action, mentioned_at 2026-05-01, topic:warehouse]"
+  },
+  {
+    "text": "SUMMARY",
+    "grounding": "PASS",
+    "usefulness": "PASS",
+    "notes": "With-skill output correctly scopes to billing actions within the 30-day window, explicitly excludes the out-of-window warehouse item, and presents a clear list with dates. All claims traceable to recalled memories."
+  }
+]

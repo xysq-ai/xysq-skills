@@ -1,0 +1,8 @@
+{
+  "winner": "A",
+  "reason": "Answer A (with-skill) correctly frames Dana as the Product Lead with her own agenda (pushing auth and billing milestones, presenting auth latency work to stakeholders) and closes with two actionable decision items. Answer B (baseline) introduces the same core Dana context but then pivots to generic auth progress items (hotfix, token-refresh, load test) framing them as milestones Dana 'mentioned wanting to push forward' - this is a mild hallucination in context-framing since the memories link the milestone desire to Dana but don't say she said those specific auth events were the milestones. Answer A stays tighter to what is logged. Both pass grounding overall but A is cleaner and more actionable.",
+  "grounding_a": "PASS",
+  "grounding_b": "PASS",
+  "ungrounded_claims_a": [],
+  "ungrounded_claims_b": ["'These are the auth milestones Dana mentioned wanting to push forward' - no memory attributes the specific recent auth events (hotfix, token-refresh, load test) to Dana's milestone acceleration request."]
+}
