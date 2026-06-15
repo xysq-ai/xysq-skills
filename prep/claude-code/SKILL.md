@@ -66,4 +66,22 @@ Omit sections that have no recalled content. If the vault has nothing on the
 topic, say "I don't have anything logged on <topic>. Want me to search a related
 term?"
 
+## Example
+
+User: "prep me for my 1:1 with Sam tomorrow"
+
+Briefing for your 1:1 with Sam:
+
+**Background**
+Sam owns growth. You last synced with Sam and Dana on the Q3 roadmap.
+
+**Recent activity**
+The Q3 roadmap planning sync covered growth and infra ownership splits.
+
+**Open threads**
+No open growth items logged against Sam specifically.
+
+**Anything needing a decision**
+Confirm the growth slice of the Q3 roadmap if it was left open.
+
 <!-- version: 1 -->

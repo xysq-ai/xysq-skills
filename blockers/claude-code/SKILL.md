@@ -63,4 +63,16 @@ For each:
 If no active blockers are found, say "No active blockers logged." and offer to
 check actionables for items that may be stalled without an explicit blocker tag.
 
+## Example
+
+User: "what am I blocked on for the release"
+
+Active blockers:
+
+- **Token change cannot ship** - **Waiting on** security review sign-off (Priya).
+  **Since** ~2 days ago.
+
+Note: a memory shows the security review later approved the token change, so that
+blocker is resolved and is NOT listed above. Only still-blocked items appear here.
+
 <!-- version: 1 -->

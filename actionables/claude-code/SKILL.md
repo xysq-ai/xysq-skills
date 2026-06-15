@@ -65,4 +65,17 @@ priority signal.
 If nothing is found, say "No open actionables logged." and offer to search by
 topic.
 
+## Example
+
+User: "what's been sitting on my plate too long"
+
+Open actionables (long-pending first):
+
+- **Migrate the billing cron off the legacy queue** - logged ~4 weeks ago, no
+  movement since. Oldest open item.
+- **Update the SDK docs for the new token flow** - logged a few days ago.
+
+These are tasks you own and can act on. For items stuck waiting on someone else,
+ask for blockers instead.
+
 <!-- version: 1 -->

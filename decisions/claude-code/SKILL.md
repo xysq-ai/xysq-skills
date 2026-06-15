@@ -60,4 +60,20 @@ Return an enumerated list, most-recent-first. For each item:
 If the window yields no decisions, say "No decisions logged for <window>." and
 offer to widen the window or check a specific topic.
 
+## Example
+
+User: "what did we decide about the event store last month"
+
+Decisions (event store - last month):
+
+1. **Decision** - Moving the event store to Kafka instead of Postgres.
+   **Why** - Postgres could not keep up with the write throughput at peak.
+   **Who** - Decided in the infra sync (Dana led).
+
+2. **Decision** - Earlier call to use Postgres for the event store.
+   **Why** - Simplicity and an existing operational footprint.
+   **Who** - Solo call, later reversed by the Kafka decision above.
+
+(Most recent first. The Postgres call is shown as superseded by the Kafka one.)
+
 <!-- version: 1 -->
