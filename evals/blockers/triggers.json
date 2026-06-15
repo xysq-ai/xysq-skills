@@ -1,0 +1,28 @@
+{
+  "skill_name": "blockers",
+  "total": 20,
+  "should_trigger": [
+    "what is blocking the search rollout",
+    "what are we stuck on right now",
+    "show me all current blockers across projects",
+    "what is still waiting on billing",
+    "anything blocking auth from shipping",
+    "what are we waiting on for the eventstore migration",
+    "is anything blocked on the DBA review",
+    "what dependencies are unresolved",
+    "what is holding up the vendor contract",
+    "what is preventing the search launch"
+  ],
+  "should_not_trigger": [
+    "what decisions have we made on auth",
+    "catch me up on the eventstore work this week",
+    "list all open action items for billing",
+    "what happened with the search rollout last week",
+    "prep me for my 1:1 with Sam",
+    "summarize what the team shipped this sprint",
+    "what did we decide about the warehouse format",
+    "what are my open to-dos from last month",
+    "give me a rundown of what happened with auth",
+    "what do I need to know before meeting Dana"
+  ]
+}

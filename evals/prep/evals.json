@@ -1,0 +1,34 @@
+{
+  "skill_name": "prep",
+  "fixture": "evals/fixture/fixture_vault.json",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "prep me for my 1:1 with Sam",
+      "notes": "Sam memories: idx 21 (Sam + Dana, Q3 roadmap alignment, 20d) and idx 22 (Sam flagged auth latency demo, 30d boundary). Both are within a 30d window. Sam is Engineering Manager, Dana is Product Lead. Output must surface actionable talking points grounded in these memories.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 30},
+        {"script": "assert_structure.py", "skill": "prep"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 2,
+      "prompt": "what do I need to know before my meeting with Dana",
+      "notes": "Dana is mentioned in the sam-topic memories. Same fixture memories apply. Tests that the skill surfaces relevant context even when queried by attendee rather than meeting owner.",
+      "scripted": [
+        {"script": "assert_structure.py", "skill": "prep"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 3,
+      "prompt": "prep me for a meeting about warehouse-v2",
+      "notes": "warehouse-v2 is intentionally empty. Expect thin-signal.",
+      "scripted": [
+        {"script": "assert_thin_signal.py"}
+      ],
+      "judge": ["grounding"]
+    }
+  ]
+}

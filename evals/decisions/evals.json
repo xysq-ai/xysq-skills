@@ -1,0 +1,35 @@
+{
+  "skill_name": "decisions",
+  "fixture": "evals/fixture/fixture_vault.json",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what decisions have we made on the eventstore project",
+      "notes": "Exercises the superseded pair: idx 7 (Elasticsearch) was reversed by idx 8 (Postgres FTS). Both must appear or the reversal must be flagged. No decisions older than 30d should leak in unless month window used.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 30},
+        {"script": "assert_structure.py", "skill": "decisions"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 2,
+      "prompt": "what decisions came out of the auth work this week",
+      "notes": "Only the HMAC-SHA256 decision (idx 6, 1d old) is within 7d for auth. Should not include warehouse or sam decisions.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 7},
+        {"script": "assert_structure.py", "skill": "decisions"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 3,
+      "prompt": "what decisions were made on the warehouse-v2 project",
+      "notes": "warehouse-v2 is intentionally empty. Expect thin-signal response.",
+      "scripted": [
+        {"script": "assert_thin_signal.py"}
+      ],
+      "judge": ["grounding"]
+    }
+  ]
+}

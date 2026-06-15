@@ -1,0 +1,28 @@
+{
+  "skill_name": "recap",
+  "total": 20,
+  "should_trigger": [
+    "catch me up on auth this week",
+    "what happened with billing lately",
+    "give me a recap of the eventstore work",
+    "bring me up to speed on the search project",
+    "what did we ship last week",
+    "summarize what went on this sprint",
+    "quick rundown of the auth changes",
+    "what has the team been working on",
+    "fill me in on last week",
+    "what went down with the eventstore migration"
+  ],
+  "should_not_trigger": [
+    "what decisions have we made on auth",
+    "list all open action items for billing",
+    "what are we blocked on right now",
+    "show me what is still stuck on the search rollout",
+    "prep me for my 1:1 with Sam",
+    "what do I need to know before meeting Dana",
+    "log a new decision about the eventstore schema",
+    "what actions are still open from last month",
+    "are there any unresolved blockers on billing",
+    "what is Sam's role on the Q3 roadmap"
+  ]
+}

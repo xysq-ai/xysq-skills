@@ -1,0 +1,28 @@
+{
+  "skill_name": "prep",
+  "total": 20,
+  "should_trigger": [
+    "prep me for my 1:1 with Sam",
+    "what do I need to know before my meeting with Dana",
+    "brief me on the auth project before the stakeholder review",
+    "what should I cover in the billing sync tomorrow",
+    "give me context for the Q3 roadmap discussion",
+    "what is relevant background for my chat with the ops team",
+    "prep me for the eventstore architecture review",
+    "what do I need before the search rollout post-mortem",
+    "get me ready for the vendor contract call",
+    "what context is useful for the billing team meeting"
+  ],
+  "should_not_trigger": [
+    "what decisions did we make on auth",
+    "catch me up on eventstore this week",
+    "what are the open action items for billing",
+    "what is blocking the search rollout",
+    "what happened on warehouse last month",
+    "list the outstanding to-dos from the auth sprint",
+    "what did we decide about the warehouse format",
+    "show me all current blockers across projects",
+    "fill me in on what shipped last sprint",
+    "what choices came out of the search review"
+  ]
+}

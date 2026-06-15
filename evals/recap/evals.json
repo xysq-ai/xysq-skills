@@ -1,0 +1,35 @@
+{
+  "skill_name": "recap",
+  "fixture": "evals/fixture/fixture_vault.json",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "catch me up on the auth work this week",
+      "notes": "Expects events within 7d. Multi-person memory (Priya + Jordan) must appear. Should end with a concrete next step.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 7},
+        {"script": "assert_structure.py", "skill": "recap"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 2,
+      "prompt": "what happened on the eventstore project this week",
+      "notes": "Batch-write merge event is within 7d. Superseded Elasticsearch decision is also 7d boundary - exercise boundary handling.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 7},
+        {"script": "assert_structure.py", "skill": "recap"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 3,
+      "prompt": "what happened on the warehouse-v2 project this week",
+      "notes": "warehouse-v2 is the intentionally-empty topic. Expect a thin-signal response.",
+      "scripted": [
+        {"script": "assert_thin_signal.py"}
+      ],
+      "judge": ["grounding"]
+    }
+  ]
+}

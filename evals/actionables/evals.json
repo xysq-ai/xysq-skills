@@ -1,0 +1,34 @@
+{
+  "skill_name": "actionables",
+  "fixture": "evals/fixture/fixture_vault.json",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what are my open action items for billing",
+      "notes": "Two billing actions exist: idx 18 (10d, within month) and idx 19 (20d, within month). The long-pending warehouse action idx 20 (45d, outside month) should NOT appear if a 30d window is applied. Confirms time-window filtering.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 30},
+        {"script": "assert_structure.py", "skill": "actionables"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 2,
+      "prompt": "show me all open actions including old ones",
+      "notes": "No time window applied. The long-pending warehouse pipeline action (idx 20, 45d) should appear, demonstrating the >30d long-pending case.",
+      "scripted": [
+        {"script": "assert_structure.py", "skill": "actionables"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 3,
+      "prompt": "do I have any open actions on the warehouse-v2 project",
+      "notes": "warehouse-v2 is intentionally empty. Expect thin-signal.",
+      "scripted": [
+        {"script": "assert_thin_signal.py"}
+      ],
+      "judge": ["grounding"]
+    }
+  ]
+}

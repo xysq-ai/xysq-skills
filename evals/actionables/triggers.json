@@ -1,0 +1,28 @@
+{
+  "skill_name": "actionables",
+  "total": 20,
+  "should_trigger": [
+    "what are my open action items for billing",
+    "show me everything still on my plate",
+    "what tasks are still open from last week",
+    "list the outstanding actions from the auth sprint",
+    "what do I still need to do on eventstore",
+    "any pending to-dos from the last month",
+    "what actions are still open from the search rollout",
+    "what is still on my to-do list",
+    "show me incomplete items from billing",
+    "give me the open items across all projects"
+  ],
+  "should_not_trigger": [
+    "what decisions did we make on eventstore",
+    "what happened with auth this week",
+    "what is blocking the search rollout right now",
+    "catch me up on billing",
+    "prep me for my 1:1 with Sam",
+    "what did we decide about the warehouse format",
+    "what blockers are unresolved",
+    "bring me up to speed on the eventstore work",
+    "what choices came out of the auth review",
+    "what do I need to know before meeting Dana"
+  ]
+}

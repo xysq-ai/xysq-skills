@@ -1,0 +1,35 @@
+{
+  "skill_name": "blockers",
+  "fixture": "evals/fixture/fixture_vault.json",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "what is blocking the search rollout",
+      "notes": "The resolved blocker pair: idx 11 (blocker, 3d old) was cleared by idx 12 (event, 10d old - legal cleared vendor contract). The skill must DROP the resolved blocker and not surface idx 11 as still-open. The cross-skill memory idx 9 (decision+blocker) should also appear or at minimum not contradict the resolution.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 30},
+        {"script": "assert_structure.py", "skill": "blockers"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 2,
+      "prompt": "show me all current blockers across projects",
+      "notes": "The still-open billing blocker (idx 13, 20d) and eventstore DBA blocker (idx 14, 30d boundary) should appear. The resolved search blocker must be dropped. The warehouse blocker idx 16 (45d) is outside 30d.",
+      "scripted": [
+        {"script": "assert_time_window.py", "window_days": 30},
+        {"script": "assert_structure.py", "skill": "blockers"}
+      ],
+      "judge": ["grounding", "usefulness"]
+    },
+    {
+      "id": 3,
+      "prompt": "is anything blocking the warehouse-v2 work",
+      "notes": "warehouse-v2 is intentionally empty. Expect thin-signal.",
+      "scripted": [
+        {"script": "assert_thin_signal.py"}
+      ],
+      "judge": ["grounding"]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "skill_name": "decisions",
+  "total": 20,
+  "should_trigger": [
+    "what decisions have we made on auth",
+    "log the decision to use Postgres FTS for eventstore",
+    "what did we decide about billing idempotency",
+    "show me all the decisions from last month",
+    "what choices did we make on the search rollout",
+    "capture a decision: switching to HMAC for tokens",
+    "list the key decisions from the last sprint",
+    "what was decided about the warehouse storage format",
+    "record that we reversed the Elasticsearch decision",
+    "what did Sam and Dana decide about the billing roadmap"
+  ],
+  "should_not_trigger": [
+    "catch me up on the auth work this week",
+    "what are the open action items for billing",
+    "what is blocking the search rollout",
+    "fill me in on what happened with the eventstore this week",
+    "prep me for my meeting with Sam",
+    "what is still waiting on the billing blocker",
+    "give me a quick rundown of last week",
+    "what happened on the warehouse project",
+    "show me what the team shipped this sprint",
+    "what do I need to know before talking to Dana"
+  ]
+}
