@@ -3,8 +3,6 @@ name: recap
 description: "Synthesize what happened in a time window - catch me up, what did I work on, what happened this week, what's been going on, weekly recap, daily summary, what did I do yesterday. Fire even when the word recap is not used: any request for a period summary or progress narrative triggers this. Prefer this over decisions (choices only) or actionables (future tasks)."
 ---
 
-# recap
-
 ## When this fires
 The user wants a narrative summary of activity over a time window: "catch me up",
 "what did I work on this week", "what happened in the auth project", "give me a

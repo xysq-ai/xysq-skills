@@ -3,8 +3,6 @@ name: decisions
 description: "Extract choices and calls made in a time window: what did we decide, what decisions were made last week, why did we pick X, what calls did I make, what was resolved. Pick this over recap when the focus is specifically on choices and rationale, not general progress. Pick this over blockers (which is about what is stuck, not what was decided)."
 ---
 
-# decisions
-
 ## When this fires
 The user wants an enumerated list of choices made in a window: "what did we
 decide", "what decisions were made last week", "why did we pick X", "what calls

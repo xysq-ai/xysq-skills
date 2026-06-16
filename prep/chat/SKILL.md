@@ -3,8 +3,6 @@ name: prep
 description: "Assemble context for an upcoming meeting or call: I have a meeting about X what do I know, prep me for my call with Acme, what's the context for the topic sync, brief me before the standup, what should I know going into the design review. Pick this over recap (past window narrative) because prep is topic-scoped and forward-facing - pulls context regardless of age."
 ---
 
-# prep
-
 ## When this fires
 The user is about to enter a meeting, call, or sync and wants a briefing: "I have
 a meeting about X - what do I know", "prep me for my call with Acme", "what's the

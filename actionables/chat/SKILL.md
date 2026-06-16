@@ -3,8 +3,6 @@ name: actionables
 description: "Surface open tasks, pending items, and stated priorities: what's pending, what do I need to do, what's been sitting too long, my open items, my priorities, what should I work on, what's on my plate. Pick this over recap (which covers the past) and over blockers (items STUCK waiting on someone external). This is forward-looking work the user owns."
 ---
 
-# actionables
-
 ## When this fires
 The user wants a forward-looking list of open tasks and priorities: "what's
 pending", "what do I need to do", "what's been sitting too long", "my open
