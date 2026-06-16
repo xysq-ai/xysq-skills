@@ -63,4 +63,4 @@ For each item: one-line description, date first logged, and any noted deadline o
 priority signal. If nothing is found, say "No open actionables logged." and offer
 to search by topic.
 
-<!-- version: 1 -->
+<!-- version: 2 -->

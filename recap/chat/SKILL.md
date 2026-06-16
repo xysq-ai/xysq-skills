@@ -62,4 +62,4 @@ Return up to four segments - tight and readable:
 If the window yields nothing, say: "Nothing logged for <window>. Want me to widen
 the window or search by topic instead?"
 
-<!-- version: 1 -->
+<!-- version: 2 -->
