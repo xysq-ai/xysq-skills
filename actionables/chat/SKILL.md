@@ -11,11 +11,15 @@ Choose this over recap (past narrative) and over blockers (items that cannot
 proceed - waiting on someone or something external).
 
 ## How to recall
-Use the `recall` tool. Query: the user's stated topic plus task-shaped keywords
-("todo, action item, pending, priority, next step") - the wording is how you
-narrow to open work. Do NOT restrict by time window - actionables can be old;
-pull broadly (raise `top_k`, and raise `budget` to "mid" for deeper coverage)
-and surface long-pending items prominently.
+Use the `recall` tool. Open tasks are usually stored as concrete actions, not as
+the word "task" - so query with the user's topic plus ACTION VERBS that describe
+work to do ("review, merge, write, follow up, rotate, migrate, finish, ship,
+update, send"), not abstract meta-words like "todo" or "action item" (those match
+poorly). If a topic is given, lead with it (e.g. billing -> "review merge billing
+webhook follow up rotate Stripe"). Do NOT restrict by time window - actionables
+can be old; pull broadly (raise `top_k`, and `budget` to "mid") and surface
+long-pending items prominently. Run a second recall with different verbs if the
+first is thin.
 
 <!-- recall-recipe-chat embedded below -->
 
@@ -63,4 +67,4 @@ For each item: one-line description, date first logged, and any noted deadline o
 priority signal. If nothing is found, say "No open actionables logged." and offer
 to search by topic.
 
-<!-- version: 3 -->
+<!-- version: 4 -->
