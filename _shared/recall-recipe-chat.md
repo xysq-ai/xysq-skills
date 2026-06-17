@@ -7,16 +7,18 @@ on the topic, say so plainly ("I don't have much on X") rather than inventing
 detail.
 
 ## Time-window handling
-`recall` has NO server-side date filter. To honor "since yesterday / last week /
-this month": put the relative phrase in the query text, over-fetch (raise
-`top_k`), then post-filter results by their `occurred_at`, keeping only those
-inside the target window. Translate the user's phrase into both the query wording
-and the post-filter bounds.
+For "since yesterday / last week / this month", pass `occurred_after` (and
+optionally `occurred_before`) as ISO dates (YYYY-MM-DD) on the `recall` call -
+the tool filters server-side to that window. Translate the user's relative phrase
+into concrete ISO bounds relative to today. Also keep the relative phrase in the
+query text so ranking stays aligned.
 
-## Tag-filtered recall
-When a `memory_kind:*` tag keys this skill, pass it in the recall `tags` to get
-the pre-classified slice; fall back to untagged semantic recall if it yields too
-little.
+## Shaping the query
+The `recall` tool has no tag filter - express the kind of memory you want in the
+query wording itself. For decisions, include words like "decision, decided,
+chose, rationale, why"; for blockers, "blocked, waiting on, stuck, on hold"; for
+open tasks, "todo, action item, pending, next step". Recall is semantic, so
+strong topical wording is how you narrow results.
 
 ## Deduplicate before rendering
 `recall` may return the same underlying fact as several near-identical chunks.
