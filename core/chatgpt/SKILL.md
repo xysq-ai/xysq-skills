@@ -25,7 +25,7 @@ On the user's **first substantive message** (not greetings):
 
 1. `POST <recall path>` with `{"query": "<user's message shaped as a lookup>", "budget": <see budget rule below>}` - searches the user's memory bank. Use results as task-specific context.
 
-Call reflect ONLY when the user's question itself requires synthesis (e.g. "what do I prefer about X", "summarise my stance on Y"). Not as warmup.
+Call reflect when a question needs facts gathered across memory and you will synthesize the answer (e.g. "what do I prefer about X", "summarise my stance on Y") - it returns facts plus a digest, not a finished answer. Not as warmup.
 
 Skip both recall and reflect for pure greetings or pure questions with no personal signal.
 
@@ -71,7 +71,7 @@ The endpoint **shape** (request body, response) is the same across surfaces - on
 |---|---|---|---|
 | Store a memory | POST | `/api/sdk/memory/retain` | `POST /api/memories` |
 | Retrieve raw facts | POST | `/api/sdk/memory/recall` | `POST /api/memories/recall` |
-| Get synthesised answer | POST | `/api/sdk/memory/reflect` | `POST /api/memories/reflect` |
+| Gather facts to synthesize | POST | `/api/sdk/memory/reflect` | `POST /api/memories/reflect` |
 | List recent memories | POST | `/api/sdk/memory/list` | `GET /api/memories` |
 | Delete a memory | POST | `/api/sdk/memory/delete` | `POST /api/memories/{id}/delete` |
 | Fetch tag taxonomy | POST | `/api/sdk/memory/tags` | `GET /api/tags/definitions` |
@@ -108,13 +108,13 @@ On first retain of a chat: full conversation so far. On subsequent retains (same
 ```json
 { "query": "What does this user prefer about X?" }
 ```
-Returns `{ "answer": "...", "confidence": "high|medium|low", "citations": [{id, type, context, occurred_start, occurred_end}, ...] }`. Use ``answer`` directly. Pass a citation's ``document_id`` (when present) to ``/api/sdk/memory/document`` for the verbatim source.
+Returns `{ "answer": "...", "confidence": "high|medium|low", "citations": [{id, type, context, occurred_start, occurred_end}, ...] }` - facts plus a digest for you to synthesize. Pass a citation's ``document_id`` (when present) to ``/api/sdk/memory/document`` for the verbatim source.
 
 ### POST /api/sdk/memory/recall
 ```json
 { "query": "...", "budget": "low", "types": ["observation"] }
 ```
-For "what does the user prefer / what's true now" - use ``/reflect`` (it resolves contradictions). Pass ``types=["observation"]`` to recall for conflict-resolved facts only; omit ``types`` for raw history.
+For "what does the user prefer / what's true now" - use ``/reflect`` (it returns observation-resolved facts to synthesize). Pass ``types=["observation"]`` to recall for conflict-resolved facts only; omit ``types`` for raw history.
 
 ### External sources - use memory/retain with source tags
 For URLs, pasted quotes, code snippets, chat transcripts - anything that's a SOURCE rather than a turn-by-turn conversation - call ``memory/retain`` with the ``source:knowledge`` tag plus a ``source_type:*`` tag:
@@ -185,7 +185,7 @@ The user will rarely say "remember this." The high-leverage retains happen when 
 
 **User pastes a URL, quote, code snippet, or chat transcript:** retain with `tags=["source:knowledge", "source_type:link"]` (or `quote`/`code`/`chat`) and put `url` / `title` / `location` in `metadata`. For binary or long files (>10 KB), use the file upload endpoint.
 
-**User asks "what do you remember about X?":** Call recall and return the raw list. Do NOT use reflect here - the user wants source material, not a synthesis.
+**User asks "what do you remember about X?":** Call recall and return the raw list - it is the direct path for source material.
 
 **File over 10 MB:** the upload endpoint returns `status="rejected"` with a size message - do not retry; tell the user and ask them to split or compress.
 
