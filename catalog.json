@@ -59,5 +59,14 @@
       "claude-code"
     ],
     "version": 4
+  },
+  "xysq-goal": {
+    "description": "Bring ALL the context a goal needs into working memory by walking the vault like a codebase: search broad, enumerate complete, follow edges, read deep, stop when the goal is covered. Fire when the user hands you a goal that spans many memories/sources and one recall won't cover it: 'pull everything I know about the auth migration', 'what's the full picture on the Acme deal', 'gather all context for the payments rework across the codebases', 'brief me completely on X before I start'. Pick this over a single recall (one ranked query) and over recap/decisions/prep (single-shot micro skills) when COVERAGE matters more than a quick answer.",
+    "name": "xysq-goal",
+    "platforms": [
+      "claude-code",
+      "generic"
+    ],
+    "version": 2
   }
 }
