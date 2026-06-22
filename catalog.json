@@ -4,7 +4,8 @@
     "name": "actionables",
     "platforms": [
       "chat",
-      "claude-code"
+      "claude-code",
+      "generic"
     ],
     "version": 6
   },
@@ -13,7 +14,8 @@
     "name": "blockers",
     "platforms": [
       "chat",
-      "claude-code"
+      "claude-code",
+      "generic"
     ],
     "version": 5
   },
@@ -38,7 +40,8 @@
     "name": "decisions",
     "platforms": [
       "chat",
-      "claude-code"
+      "claude-code",
+      "generic"
     ],
     "version": 5
   },
@@ -47,7 +50,8 @@
     "name": "prep",
     "platforms": [
       "chat",
-      "claude-code"
+      "claude-code",
+      "generic"
     ],
     "version": 5
   },
@@ -56,7 +60,8 @@
     "name": "recap",
     "platforms": [
       "chat",
-      "claude-code"
+      "claude-code",
+      "generic"
     ],
     "version": 5
   },
@@ -64,7 +69,8 @@
     "description": "Summarize the current session and save it to xysq, losing no knowledge, just fewer tokens. Fire when the user says 'wrap up', 'summarize this session', 'save the session', 'save what we did', 'checkpoint this', 'store this session', or signals the session is ending and wants it persisted. This is the loop's persistence step: it extracts the durable knowledge from a long conversation into a compact, recallable memory so the next session (yours or a teammate's) starts informed instead of blank. Re-running in the same session UPDATES the same memory, it does not create a duplicate.",
     "name": "wrap-up",
     "platforms": [
-      "claude-code"
+      "claude-code",
+      "generic"
     ],
     "version": 1
   },
