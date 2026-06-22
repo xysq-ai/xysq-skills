@@ -60,6 +60,14 @@
     ],
     "version": 5
   },
+  "wrap-up": {
+    "description": "Summarize the current session and save it to xysq, losing no knowledge, just fewer tokens. Fire when the user says 'wrap up', 'summarize this session', 'save the session', 'save what we did', 'checkpoint this', 'store this session', or signals the session is ending and wants it persisted. This is the loop's persistence step: it extracts the durable knowledge from a long conversation into a compact, recallable memory so the next session (yours or a teammate's) starts informed instead of blank. Re-running in the same session UPDATES the same memory, it does not create a duplicate.",
+    "name": "wrap-up",
+    "platforms": [
+      "claude-code"
+    ],
+    "version": 1
+  },
   "xysq-goal": {
     "description": "Bring ALL the context a goal needs into working memory by walking the vault like a codebase: search broad, enumerate complete, follow edges, read deep, stop when the goal is covered. Fire when the user hands you a goal that spans many memories/sources and one recall won't cover it: 'pull everything I know about the auth migration', 'what's the full picture on the Acme deal', 'gather all context for the payments rework across the codebases', 'brief me completely on X before I start'. Pick this over a single recall (one ranked query) and over recap/decisions/prep (single-shot micro skills) when COVERAGE matters more than a quick answer.",
     "name": "xysq-goal",
