@@ -53,4 +53,5 @@ for skill_dir in sorted(os.listdir(ROOT)):
 
 with open(os.path.join(ROOT, "catalog.json"), "w") as f:
     json.dump(catalog, f, indent=2, sort_keys=True)
+    f.write("\n")  # trailing newline so regenerating is a clean no-op (no dirty diff)
 print(f"wrote catalog.json with {len(catalog)} skills")

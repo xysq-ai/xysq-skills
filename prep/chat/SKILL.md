@@ -65,4 +65,4 @@ Return a briefing with up to four sections (omit any with no recalled content):
 If the vault has nothing on the topic, say "I don't have anything logged on
 <topic>. Want me to search a related term?"
 
-<!-- version: 3 -->
+<!-- version: 5 -->

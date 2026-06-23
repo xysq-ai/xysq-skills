@@ -63,4 +63,4 @@ For each:
 If no active blockers are found, say "No active blockers logged." and offer to
 check actionables for items that may be stalled without an explicit blocker tag.
 
-<!-- version: 3 -->
+<!-- version: 5 -->

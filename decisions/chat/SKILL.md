@@ -61,4 +61,4 @@ Return an enumerated list, most-recent-first. For each item:
 If the window yields no decisions, say "No decisions logged for <window>." and
 offer to widen the window or check a specific topic.
 
-<!-- version: 3 -->
+<!-- version: 5 -->
