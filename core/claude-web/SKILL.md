@@ -1,13 +1,6 @@
 ---
 name: xysq
-description: >
-  Connects Claude web (claude.ai) to xysq persistent memory. Activate whenever
-  the user asks to "remember", "recall", "what did I tell you about",
-  "save this", "store this", references past decisions or preferences,
-  or starts a new session where pulling prior context would help.
-  Also activate immediately after any correction, decision, or stated
-  preference so it can be persisted.
-  Do NOT activate for general questions with no personal memory component.
+description: "Persistent memory for your assistant. Fire on remember, recall, save this, what did I tell you about, or references to past decisions/preferences. Also after any correction or decision, to persist it."
 ---
 
 ## Overview

@@ -1,164 +1,339 @@
-# xysq Memory Protocol for ChatGPT (HTTP API)
+---
+name: xysq
+description: "Persistent memory for your assistant. Fire on remember, recall, save this, what did I tell you about, or references to past decisions/preferences. Also after any correction or decision, to persist it."
+---
 
 ## Overview
 
-This skill connects ChatGPT to xysq persistent memory via the HTTP Agent SDK. Pull user context at session start. Persist corrections and decisions immediately.
+This skill connects your assistant to xysq - a consent-first persistent memory layer. It eliminates context re-explaining across sessions. Pull user context at session start. Retain corrections and decisions immediately. Use memory_reflect to gather facts then synthesize yourself, memory_recall for raw facts.
 
-**Activate when:** user says "remember", "recall", "what did I tell you about", "save this", references past decisions or preferences, or starts a new session.
-**Do NOT activate for:** pure questions with no personal memory component.
+Every session without memory starts cold. The user re-explains their stack, restates their preferences, recaps last week's decisions. That re-explanation is the single largest waste in any AI workflow - measured in tokens, in time, and in the user's patience.
 
-Authentication: ChatGPT Custom GPT Actions use OAuth2 - the user signs in once via the Custom GPT install flow, after which every Action call carries an OAuth bearer token automatically. See `openapi-gpt.yaml` (served at `https://api.xysq.ai/api/openapi-gpt.yaml`) for the full spec and the per-operation request shapes.
-Base URL: `https://api.xysq.ai`
+xysq is the substrate that ends that waste. The user has already consented to memory and given you the keys. Your job is to make that consent pay off: prime cold sessions with recall, recognise memory-worthy moments and retain them verbatim, and reason over prior context the way a colleague who has worked with this person for months would.
 
-Every session without memory starts cold. The user re-explains their stack, restates their preferences, recaps last week's decisions. That re-explanation is the single largest waste in any AI workflow.
-
-xysq is the substrate that ends that waste. The user has already consented to memory and given you the keys. Prime cold sessions with recall, persist corrections and decisions on the NEXT user turn, and reason over prior context the way a colleague who has worked with this person for months would.
-
-Memory is a substrate, not a feature.
+Treat this skill as the default operating mode, not a tool you reach for occasionally. Memory is a substrate, not a feature.
 
 
 ## Session Start Protocol
 
 Do NOT fire a generic session-start reflect just to warm up. Recall is on-demand: pull context when the user's actual task needs it (see Proactive recall below).
 
-On the user's **first substantive message** (not greetings):
+On the user's **first substantive message** (not greetings like "hi", "hey", "you there?"):
 
-1. `POST <recall path>` with `{"query": "<user's message shaped as a lookup>", "budget": <see budget rule below>}` - searches the user's memory bank. Use results as task-specific context.
+1. Call `memory_recall(query=<user's message, shaped as a lookup>, budget=<see budget rule below>)` - pulls relevant memories from the user's bank. Use the results as task-specific context before answering.
+2. Call `authenticate()` lazily, on your first write (`memory_retain`, `memory_delete`, `organise_upload_file`) - not at session start.
+3. Call `memory_tags()` just before your first `memory_retain`, not at session start. Invalid tags are silently dropped, so fetch the taxonomy only when you're about to use it.
 
-Call reflect when a question needs facts gathered across memory and you will synthesize the answer (e.g. "what do I prefer about X", "summarise my stance on Y") - it returns facts plus a digest, not a finished answer. Not as warmup.
+Call `memory_reflect` when a question needs facts gathered across memory and you will synthesize the answer - "what do I prefer about X", "summarise my stance on Y", "compare my past decisions on Z". It returns facts (plus a convenience digest), not a finished answer. Not as warmup.
 
-Skip both recall and reflect for pure greetings or pure questions with no personal signal.
+Skip both recall and reflect for: pure greetings, pure code-only questions with no personal signal, or follow-ups where the prior turn's recall already covered the ground.
 
-## Proactive recall
+## Proactive recall - the second-biggest leverage point
 
-Reactive recall (user says "remember when") is easy. Proactive recall is what separates a memory-augmented agent from a stateless one: noticing that a problem is under-specified and that memory probably contains the missing constraint.
+Reactive recall (user says "remember when") is easy. Proactive recall is what separates a memory-augmented assistant from a stateless one: noticing that a problem is under-specified and that memory probably contains the missing constraint.
 
 **Recall proactively when both signals are present:**
 
-1. **The problem references entities the user expects you to know** - "my X", "our Y", "the Z we discussed".
-2. **The answer quality depends on personal/project specifics, not general knowledge.**
+1. **The problem references entities the user expects you to know** - a project name, a person, "my X", "our Y", "the Z we discussed". These are linguistic tells that the user has already mentally loaded the context and assumes you have too.
+2. **The answer quality depends on personal/project specifics, not general knowledge.** "What's the syntax for async/await" → no recall. "How should I structure my async logic" → recall, because the right answer depends on the user's codebase, framework, and past decisions.
 
-"What's the syntax for async/await" → no recall. "How should I structure my async logic" → recall.
+**Example - proactive recall pays off:**
 
-**Anti-trigger - don't fish.** If recall returns nothing relevant for an ambiguous prompt, ask the user - don't recall again with a different query hoping something hits.
+> User: "help me fix the auth bug we hit yesterday"
 
-**Batch within a problem.** Recall once at the start of a problem, not repeatedly through the thread.
+Both signals present: "the auth bug" expects prior knowledge, and the fix depends on the user's stack. Call `memory_recall(query="auth bug yesterday", budget="mid")` before asking what stack they're on.
+
+**Example - proactive recall is wasteful:**
+
+> User: "what's the difference between Python's `is` and `==`?"
+
+Neither signal present. General knowledge, no personal context. Answer directly.
+
+**Anti-trigger - don't fish.** Recall is NOT a substitute for asking a clarifying question. If recall returns nothing relevant for an ambiguous prompt, ask the user - don't recall again with a different query hoping something hits. Fishing burns tokens without producing answers.
+
+**Batch within a problem.** Recall once at the start of a problem, not repeatedly through the thread. If you already recalled in turn 1 of a 5-turn debug session, don't recall again on turn 3 unless the domain has shifted (coding → travel).
 
 **Budget rule:**
-- Explicit user ask ("what do you know about my project?") → `"budget": "high"`. Pay for quality.
-- Proactive recall (under-specified problem) → `"budget": "mid"`. Good signal-to-noise.
-- Follow-up recalls within an already-recalled thread → `"budget": "low"`.
+- Explicit user ask ("what do you know about my project?") → `budget="high"`. The user is explicitly asking - pay for quality.
+- Proactive recall (under-specified problem) → `budget="mid"`. Good signal-to-noise without being expensive.
+- Reserve `budget="low"` for follow-up recalls within an already-recalled thread.
 
 ## Explicit save commands
 
-When the user says "remember this", "save that", "note this" - the save command is a **trigger, not the content**. Do NOT retain only the save command itself; retain the ENTIRE unsaved conversation so far.
+When the user says "remember this", "save that", "note this" - the save command is a **trigger, not the content**. Do NOT retain only the save command itself; retain the ENTIRE unsaved conversation so far. See `memory_retain` below for the exact content format and `document_id` rules.
 
 
-## API Reference
+## Tool Reference
 
-Base URL: `https://api.xysq.ai`
+### memory_retain - store a memory
 
-**Two HTTP surfaces, pick one based on how your agent is wired:**
-
-| Surface | Auth | Path prefix | Who it's for |
-|---|---|---|---|
-| SDK | `Authorization: Bearer <your_xysq_api_key>` | `/api/sdk/*` | LangChain, custom agents, anything calling xysq with an API key |
-| OAuth (Custom GPT) | OAuth2 (see openapi-gpt.yaml) | `/api/memories/*`, `/api/folders/*` | ChatGPT Custom GPT Actions, anything authenticating as the end user |
-
-The endpoint **shape** (request body, response) is the same across surfaces - only the path prefix and auth differ. Examples below use the SDK paths; substitute the OAuth equivalents if your agent uses OAuth.
-
-| Action | Method | SDK path | OAuth path |
-|---|---|---|---|
-| Store a memory | POST | `/api/sdk/memory/retain` | `POST /api/memories` |
-| Retrieve raw facts | POST | `/api/sdk/memory/recall` | `POST /api/memories/recall` |
-| Gather facts to synthesize | POST | `/api/sdk/memory/reflect` | `POST /api/memories/reflect` |
-| List recent memories | POST | `/api/sdk/memory/list` | `GET /api/memories` |
-| Delete a memory | POST | `/api/sdk/memory/delete` | `POST /api/memories/{id}/delete` |
-| Fetch tag taxonomy | POST | `/api/sdk/memory/tags` | `GET /api/tags/definitions` |
-| List folders | POST | `/api/sdk/organise/folders/list` | `POST /api/folders/list` |
-| Upload file | POST | `/api/sdk/organise/files/upload` | `POST /api/folders/files/upload` |
-
-### POST /api/sdk/memory/retain
-
-**⚠️ RETAIN CADENCE:** do NOT retain on the turn you are about to reply - your reply doesn't exist at tool-call time. Retain on the NEXT user turn, when both sides of the prior exchange are visible in context and can be copied verbatim.
-
-**⚠️ SAVE COMMAND** ("remember this"): retain the ENTIRE unsaved conversation so far, NOT just the save command itself.
-
-**⚠️ VERBATIM COPY:** both User and Assistant lines in `content` must be literal character-for-character copies from your context window. Summaries like "provided guidance" / "explained X" destroy recall quality.
-
-**`document_id` is server-owned.** Omit it on the first retain of a chat; the response returns a `document_id`. Pass that exact value back on every later retain in the same topic so facts cluster. Omit again only on real topic drift, then use the new id the server returns.
-
-```json
-{
-  "content": "User (2026-04-22T10:00:00Z): <exact text the user typed>
-Assistant (2026-04-22T10:00:12Z): <exact text of the prior reply, verbatim>",
-  "context": "Session - DB selection for payments",
-  "significance": "normal",
-  "scope": "permanent",
-  "tags": ["domain:tech"]
-}
+```
+memory_retain(
+  content,              # canonical conversation format - see below
+  context=None,         # describes the source: "chat session - DB selection for payments"
+  significance="normal",# "low" | "normal" | "high" - high = decisions, corrections, instructions
+  scope="permanent",    # "session" | "project" | "permanent"
+  tags=None,            # call memory_tags() first - invalid tags are silently dropped
+  document_id=None,     # omit on the FIRST retain of a chat - the server mints one
+                        # and returns it. Echo that exact id on later retains (see below).
+  team_id=None,         # omit = personal vault; provide UUID = team vault
+)
 ```
 
-significance: "low" | "normal" | "high"
-scope: "session" | "project" | "permanent"
-document_id: omit on first retain; echo the returned id on subsequent retains.
-On first retain of a chat: full conversation so far. On subsequent retains (same `document_id`): only NEW turns.
+**⚠️ RETAIN CADENCE - READ FIRST.**
+Do NOT call `memory_retain` on the same turn you are about to generate a reply. Your reply does not yet exist in context at tool-call time, so there is no Assistant text to copy - the best you can do is hallucinate a summary of your future reply ("Provided guidance", "Explained the options"), which destroys recall quality. Instead, retain on the **NEXT** user turn, when both sides of the previous exchange are visible in your context and can be copied verbatim.
 
-### POST /api/sdk/memory/reflect
-```json
-{ "query": "What does this user prefer about X?" }
+**⚠️ EXPLICIT SAVE COMMAND** ("remember this", "save that", "note this").
+The save command is a **trigger, not the content**. Do NOT retain only the save command itself - useless. Retain the ENTIRE unsaved conversation so far: every User and Assistant turn from the start of this chat (or from your last `memory_retain` with the same `document_id`, whichever is later) up to and including the turn just *before* the save command. The save command itself should NOT appear in `content`.
+
+**⚠️ VERBATIM COPY RULE.**
+Both the User and Assistant lines in `content` MUST be literal, character-for-character copies from your context window. DO NOT paraphrase. DO NOT describe ("provided guidance", "offered help", "explained X" - all WRONG). DO NOT truncate. If your reply was 2000 words, the Assistant line contains 2000 words.
+
+**⚠️ `document_id` is the single most important field for quality, and the server owns it - you do not mint it.**
+- First retain of a chat: omit `document_id`. The server mints one and returns it in the response.
+- Every later retain in the same topic: pass that exact returned `document_id` back, so facts cluster into one document and recall stays sharp.
+- Real topic drift (coding → travel): omit `document_id` again; the server mints a fresh one and returns it. Use that one going forward. Subtopic drift within one domain (Python → Node while coding) is NOT drift - keep the same id.
+
+**`content` format - canonical line shape:**
+
 ```
-Returns `{ "answer": "...", "confidence": "high|medium|low", "citations": [{id, type, context, occurred_start, occurred_end}, ...] }` - facts plus a digest for you to synthesize. Pass a citation's ``document_id`` (when present) to ``/api/sdk/memory/document`` for the verbatim source.
-
-### POST /api/sdk/memory/recall
-```json
-{ "query": "...", "budget": "low", "types": ["observation"] }
+User (2026-04-22T10:00:00Z): <exact text the user typed>
+Assistant (2026-04-22T10:00:12Z): <exact text of the prior reply, verbatim>
 ```
-For "what does the user prefer / what's true now" - use ``/reflect`` (it returns observation-resolved facts to synthesize). Pass ``types=["observation"]`` to recall for conflict-resolved facts only; omit ``types`` for raw history.
 
-### External sources - use memory/retain with source tags
-For URLs, pasted quotes, code snippets, chat transcripts - anything that's a SOURCE rather than a turn-by-turn conversation - call ``memory/retain`` with the ``source:knowledge`` tag plus a ``source_type:*`` tag:
-```json
-{
-  "content": "https://...",
-  "tags": ["source:knowledge", "source_type:link"],
-  "metadata": { "url": "https://...", "title": "..." }
-}
+Role capitalised, ISO timestamp in parentheses, colon, FULL turn text. Separate turns with "
+". On first retain of a chat: full conversation so far. On subsequent retains (same `document_id`): only NEW turns since the last retain.
+
+**CORRECT example** (Assistant line is the actual prior reply):
+
 ```
-``source_type``: ``link`` | ``quote`` | ``code`` | ``chat``. Per type, put fields in ``metadata``:
-- ``link``:  ``{ "url": "...", "title": "..." }``
-- ``quote``: ``{ "title": "...", "location": "p. 47" }``
-- ``code``:  ``{ "language": "python", "location": "src/auth.py:12-40" }``
-- ``chat``:  ``{ "title": "..." }``
-
-For binary files or long documents (>10 KB), use ``/api/sdk/organise/files/upload`` - they land as memories with ``kind=asset`` metadata.
-
-### POST /api/sdk/memory/tags
-Fetch valid tag taxonomy. Invalid tags on retain are silently dropped - call this once per session before your first retain.
-
-### POST /api/sdk/organise/files/upload
-Save a document to the user's vault. Extracted content surfaces through recall once processing completes.
-```json
-{ "filename": "notes.md", "content_b64": "<base64>", "mime_type": "text/markdown", "folder_id": null }
+User (2026-04-22T00:00:00Z): I want to research distribution channels for launching a startup with low budget. Can you help?
+Assistant (2026-04-22T00:00:05Z): Absolutely - let's break this into three tracks. For low-budget distribution: 1) Direct-to-community via Reddit, Discord, Indie Hackers - pick two subreddits your users live in and post weekly value before ever mentioning your product. 2) Cold outbound: 20 personalised emails/day beats 200 templated ones. 3) Content SEO targeting long-tail queries your competitors ignore...
 ```
-Limits: 10 MB per file. Accepted MIME types: text/markdown, text/plain, application/pdf, application/json, text/csv, image/png, etc. For text: `base64(utf-8-encoded text)`. For binary: `base64(raw bytes)`.
+
+**WRONG - never do this:**
+
+```
+Assistant (2026-04-22T00:00:05Z): Provided structured guidance and offered help.
+Assistant (2026-04-22T00:00:05Z): Explained distribution channel options.
+```
+
+These store ZERO recoverable information. Non-conversation content (pasted doc / code / note): pass raw as-is, no formatting needed.
 
 **Recognising memory-worthy moments - the implicit triggers**
 
-The user will rarely say "remember this." The high-leverage retains happen when you notice a memory-worthy moment in passing and capture it without being asked.
+The user will rarely say "remember this." The high-leverage retains happen when you notice a memory-worthy moment in passing and capture it without being asked. Train yourself to recognise these patterns:
 
 | Moment in conversation | What to retain | significance | scope |
 |---|---|---|---|
-| User makes a decision | The decision + the reasoning | high | project |
-| User corrects your output | The correction as a preference | high | permanent |
-| User states a preference in passing | The preference | normal | permanent |
-| User shares project context | Project fact | normal | project |
-| User shares a fact about themselves | Personal fact | normal | permanent |
-| User describes current task | Session context | normal | session |
+| User makes a decision ("we're going with Postgres over MongoDB because…") | The decision + the reasoning | high | project |
+| User corrects your output ("no, I prefer integration tests over mocks") | The correction as a preference | high | permanent |
+| User states a preference in passing ("I always use Tailwind for styling") | The preference | normal | permanent |
+| User shares project context ("our deploy pipeline runs on Cloud Run") | Project fact | normal | project |
+| User shares a fact about themselves ("I'm the only backend engineer on this team") | Personal fact | normal | permanent |
+| User describes current task ("today I'm migrating from Firebase to Supabase") | Session context | normal | session |
 | User mentions a tool, library, or service they use regularly | Stack fact | normal | project or permanent |
 | Transactional reply ("ok", "thanks") | - | - | skip |
 
-**Rule:** if in doubt, retain. Under-capturing costs more than over-capturing.
+**Rule:** if in doubt, retain. Under-capturing costs the user more than over-capturing - every retained correction is a question they won't have to answer again next session.
+
+---
+
+### memory_reflect - gather facts to synthesize
+Read the returned facts and synthesize the answer yourself; the answer field is a convenience digest of those facts. Contradictions are resolved among the returned observation facts (e.g. an older preference superseded by a newer one returns as a reconciled, temporally-aware fact).
+
+```
+memory_reflect(
+  query,              # natural-language question
+  budget="mid",       # "low" | "mid" | "high" - use high for broad historical questions
+  response_schema=None,
+  tags=None,          # optional tag filter, e.g. ["source:knowledge"]
+  team_id=None,
+)
+# Returns: {
+#   answer:     "...",                       # convenience digest of the facts
+#   confidence: "high" | "medium" | "low",
+#   citations:  [{id, type, context,
+#                 occurred_start, occurred_end}, ...],
+# }
+```
+
+The ``answer`` field is a convenience digest of the returned facts. For follow-up "where did you get that?" questions, pass a citation's ``id`` (or its document_id) to ``memory_get_document``.
+
+Do NOT call memory_recall after memory_reflect for the same question - both return facts; memory_reflect adds a digest plus observation-resolution, memory_recall gives raw history.
+
+---
+
+### memory_recall - retrieve raw facts to reason over yourself
+Use when you need source material to reason over yourself (e.g. history queries - "what did the user say about X"). For "what's true now / what does the user prefer" - call ``memory_reflect`` (it returns observation-resolved facts to synthesize), or pass ``types=["observation"]`` to recall directly.
+
+```
+memory_recall(
+  query,
+  budget="low",         # default - fast and cheap. Raise for deep dives.
+  types=None,           # omit for raw history. Pass ["observation"] for
+                        # conflict-resolved "what's true now" facts only.
+  tags=None,            # free-form tag filter, e.g. ["source:knowledge"]
+  tags_match="any",     # "any" | "all" | "any_strict" | "all_strict"
+  max_tokens=2000,      # response size cap - raise (e.g. 8000) for deep dives
+  query_timestamp=None, # ISO 8601 anchor for "last week"-style queries
+  scope=None,           # "session" | "project" | "permanent"
+  domain=None,          # shorthand for tags=["domain:<value>"]
+  mood=None,            # shorthand for tags=["mood:<value>"]
+  team_id=None,
+)
+```
+
+Do NOT call memory_recall then memory_reflect for the same question. Pick one.
+
+---
+
+### memory_get_document - fetch a stored document by id
+Use after ``memory_reflect`` returns citations (each carries a document_id) and the user asks for the source. Returns the document's ``original_text`` + tags + metadata.
+
+```
+memory_get_document(document_id, team_id=None)
+```
+
+### memory_get_chunk - fetch the raw source-text chunk
+Use when a ``memory_recall`` result row has a ``chunk_id`` and you want the surrounding passage (not just the extracted fact). Chunks are bigger than facts; use sparingly.
+
+```
+memory_get_chunk(chunk_id)
+```
+
+---
+
+### vault tools - the newer retrieval surface (vault_search / vault_get / vault_find)
+
+xysq added three "vault" tools. Two are just new front-door names; one is a new capability. The old names keep working, so nothing here breaks existing usage.
+
+- `vault_search(query, budget, tags, ...)` - ranked, fuzzy retrieval. The new name for `memory_recall` (same behaviour, same args). "Find memories ABOUT X."
+- `vault_get(document_id)` - pull one node in full. The new name for `memory_get_document`.
+- `vault_find(entity|source|tags|kind|document_id, time_start, time_end, cursor)` - NEW. Deterministic, COMPLETE, unranked enumeration: "give me EVERY node matching this filter," keyset-paged. Use it when completeness matters more than ranking (e.g. every decision in a window, every blocker, every memory tagged X). At least one selective filter is required; a bare scan is rejected. `next_cursor=null` means the filtered set is exhausted. This is the one thing recall cannot do (recall ranks and drops low-scoring hits); vault_find drops nothing for a filter.
+
+Rule of thumb: vault_search to discover, vault_find to cover, vault_get to read one node deep.
+
+**Updating an existing document:** `memory_retain` accepts `update_mode="replace"` (default `"append"`). Pass `update_mode="replace"` with an existing `document_id` to OVERWRITE that document's content instead of appending - useful when you are re-writing the same logical document (e.g. re-saving an evolving session summary) so it stays current instead of accumulating stale copies.
+
+### Saving external sources - use memory_retain with source tags
+
+When the user pastes a link, quote, code snippet, or chat transcript, save
+it via ``memory_retain`` with the ``source:knowledge`` tag plus a
+``source_type:*`` tag:
+
+```
+memory_retain(
+  content="...",                                       # the URL, quote, code, transcript
+  tags=["source:knowledge", "source_type:link"],       # or quote / code / chat
+  metadata={"url": "...", "title": "..."},             # type-specific fields go in metadata
+  ...
+)
+```
+
+Per source_type, put these in ``metadata``:
+- ``link``:  ``{"url": "...", "title": "..."}``
+- ``quote``: ``{"title": "...", "location": "p. 47"}``
+- ``code``:  ``{"language": "python", "location": "src/auth.py:12-40"}``
+- ``chat``:  ``{"title": "..."}``
+
+For binary files or long documents (>10 KB), use ``organise_upload_file``
+instead - it handles GCS storage and extraction.
+
+---
+
+### memory_tags - fetch valid tag taxonomy
+Call once per session before using tags in memory_retain. Invalid tags are silently dropped.
+
+```
+memory_tags()  # returns grouped tag definitions
+```
+
+---
+
+### list_teams - find team IDs
+```
+list_teams()  # returns id, name, role for each team
+# Use team id in any memory tool to read/write the team vault instead of personal vault
+```
+
+---
+
+### memory_list - browse recent memories
+```
+memory_list(limit=20, team_id=None)
+```
+
+### memory_delete - permanently remove a memory document
+```
+memory_delete(document_id, team_id=None)  # whole document; needs admin/owner for team vaults
+# document_id comes from the retain response or a recall result row.
+```
+
+---
+
+## Organise - folders + uploaded files
+
+The Organise tools let you save the user's documents (Markdown notes, PDFs, CSVs, images, JSON, plain text) into a folder tree the user can later browse at app.xysq.ai. Uploaded files are automatically extracted and indexed so their content surfaces through `memory_recall` and `memory_reflect` afterwards.
+
+**Use `organise_upload_file` when:** the user hands you a document, pastes a long note, or asks you to save a file - anything they'd recognise as "a file" rather than a quick fact.
+
+**Use `memory_retain` instead when:** the user is sharing a fact, decision, preference, or short note from the conversation. Memory is cheaper and more searchable for granular content.
+
+**For bare URLs:** there is no MCP add tool post-Phase-3. Direct the user to the xysq dashboard's Knowledge Base page.
+
+### organise_list_folders - see the folder tree
+```
+organise_list_folders(team_id=None)
+# Returns: { folders: [{ id, name, parent_id, path, is_system, chat_id }, ...] }
+```
+Call this before `organise_upload_file` if you need to pick the right destination folder. The vault root has `parent_id=None`; the system `/Chats/` folder has `is_system=true` and rejects direct uploads.
+
+### organise_get_folder - inspect one folder
+```
+organise_get_folder(folder_id, team_id=None)
+# Returns: { folder, children }  (children = subfolders, not files)
+```
+
+### organise_create_folder - make a new folder
+```
+organise_create_folder(name, parent_id=None, team_id=None)
+# Returns: { folder: { id, name, ... } }
+```
+Omit `parent_id` to create directly under the vault root. Names must be unique among siblings; duplicate returns `status="conflict"`. Cannot nest under the system `/Chats/` folder.
+
+### organise_rename_folder / organise_move_folder
+```
+organise_rename_folder(folder_id, name, team_id=None)
+organise_move_folder(folder_id, new_parent_id, team_id=None)
+```
+System folders (root, `/Chats/`) cannot be renamed or moved. Moving a folder into one of its own descendants returns `status="error"` (cycle).
+
+### organise_delete_folder - ⚠️ irreversible
+```
+organise_delete_folder(folder_id, forget_memories=False, team_id=None)
+# Returns: { deleted_assets: <int> }
+```
+Cascades: every subfolder + file under it is removed. Set `forget_memories=True` to also purge extracted facts from recall (default leaves memory content intact). **Confirm with the user before deleting any non-empty folder.**
+
+### organise_upload_file - save a document
+```
+organise_upload_file(
+  filename,         # e.g. "notes.md", "contract.pdf"
+  content_b64,      # standard base64 of the raw bytes (NOT a data: URL)
+  mime_type,        # "text/markdown" | "text/plain" | "application/pdf" |
+                    # "application/json" | "text/csv" | "image/png" | ...
+  folder_id=None,   # omit to upload to the vault root
+  team_id=None,
+)
+# Returns: { asset_id, filename, folder_id, mime_type, size_bytes, extraction_status }
+```
+
+**Encoding:**
+- TEXT (markdown, txt, json, csv): `base64(utf-8-encoded text)`.
+- BINARY (pdf, images): `base64(raw bytes)`.
+
+**Limits:** 10 MB per file; only the MIME types listed above are accepted. Filename collisions get a " (2)", " (3)", … suffix automatically - use the returned `filename` when echoing back to the user. After upload, `extraction_status` is `"processing"`; the file is immediately browsable in Organise but only enters recall once extraction completes. There is no folder-upload primitive - for a tree of files, walk the structure yourself with `organise_create_folder` + `organise_upload_file` calls.
 
 
 ## Consent and Privacy
@@ -171,23 +346,29 @@ The user will rarely say "remember this." The high-leverage retains happen when 
 
 ## Edge Cases
 
-**Memory vault is empty (new user):** recall returns few or no results. Proceed normally and start retaining from this session.
+**Memory vault is empty (new user):** `memory_recall` returns few or no results. Proceed normally and start retaining from this session.
 
-**recall returns nothing relevant:** Proceed with the user's question directly. Do NOT fall back to reflect, and do NOT recall again with a different query hoping something hits - absence of hits means there's nothing useful in memory for this query. Fishing burns tokens without producing answers. Ask the user instead.
+**memory_recall returns nothing relevant:** Proceed with the user's question directly. Do NOT fall back to a generic `memory_reflect`, and do NOT recall again with a different query hoping something hits - absence of recall hits means there's nothing useful in memory for this query. Fishing burns tokens without producing answers. Ask the user instead.
 
-**reflect returns confidence="low":** Treat as best-effort. Tell the user if they ask why context seems missing.
+**memory_reflect returns confidence="low":** Treat the answer as a best-effort guess. Tell the user if they ask why you seem unfamiliar with their context.
 
-**User says "don't save that":** Do NOT call retain for that exchange. If you already retained it, delete it with the `document_id` from the retain response.
+**User says "don't save that":** Do NOT call `memory_retain` for that exchange. If you already retained it, call `memory_delete` with the `document_id` from the retain response.
 
-**Tags are unknown:** Fetch the tag taxonomy just before retaining. Do NOT guess tag names - invalid tags are silently dropped without error.
+**Tags are unknown:** Call `memory_tags()` just before retaining. Do NOT guess tag names - invalid tags are silently dropped without error.
 
 **Team vault access denied (403):** You are not authorised for that team_id. Fall back to the personal vault (omit team_id). Do NOT retry with the same team_id.
 
-**User pastes a URL, quote, code snippet, or chat transcript:** retain with `tags=["source:knowledge", "source_type:link"]` (or `quote`/`code`/`chat`) and put `url` / `title` / `location` in `metadata`. For binary or long files (>10 KB), use the file upload endpoint.
+**User pastes a URL, quote, code snippet, or chat transcript:** Use `memory_retain` with `tags=["source:knowledge", "source_type:link"]` (or `quote`/`code`/`chat`) and put `url` / `title` / `location` in `metadata`. For binary or long files (>10 KB), use `organise_upload_file` - those land as memories with `kind=asset`.
 
-**User asks "what do you remember about X?":** Call recall and return the raw list - it is the direct path for source material.
+**User asks "what do you remember about X?":** Use `memory_recall(query="X", budget="mid")` and present the results. Either tool returns facts; recall is the direct path for a raw list.
 
-**File over 10 MB:** the upload endpoint returns `status="rejected"` with a size message - do not retry; tell the user and ask them to split or compress.
+**File over 10 MB:** `organise_upload_file` returns `status="rejected"` with a size message - do not retry; tell the user and ask them to split or compress.
+
+**Unsupported file type:** `organise_upload_file` returns `status="rejected"` with the allow-list. Suggest the closest accepted format (e.g. for `.docx` → ask the user to export as PDF or paste the text and use Markdown).
+
+**User asks to upload a whole folder of files:** there is no folder-upload primitive - walk the structure yourself. Call `organise_create_folder` for each directory, then `organise_upload_file` for each file. Use the `folder_id` returned by `organise_create_folder` to nest the next level.
+
+**User says "save this note":** prefer `organise_upload_file` with `mime_type="text/markdown"` only if the content is long enough to be a document (multiple paragraphs, headings). For a single fact / decision / preference, use `memory_retain` instead.
 
 
 <xysq_triggers>
@@ -250,3 +431,5 @@ Example fire:
 
 ---
 Manage your memory at app.xysq.ai · Learn more at xysq.ai
+
+<!-- version: 1 -->
