@@ -40,6 +40,9 @@ tight line, dense but complete (keep the WHY, the WHO, the exact value):
 4. **Open tasks** - what's still to do, with deadlines. `memory_kind:action`.
 5. **Corrections & preferences** - anything the user corrected you on or stated
    as a preference. Keep close to verbatim, highest-value lowest-token memories.
+   This includes operating/autonomy preferences (e.g. "stop asking me to approve
+   every step, act on my past decisions"), not just output corrections. Capture
+   these verbatim; they're what a future session needs most.
 6. **Condensation catch-all** - anything important that doesn't fit a bucket,
    condensed to the fewest words that keep every concrete claim. The safety net.
 
@@ -101,4 +104,4 @@ Tell the user in one or two lines what you saved (the buckets captured, personal
 or team) and that re-running updates this same memory. Don't dump the full
 summary back unless asked.
 
-<!-- version: 1 -->
+<!-- version: 2 -->

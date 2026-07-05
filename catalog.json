@@ -11,6 +11,17 @@
     ],
     "version": 6
   },
+  "auto-mem": {
+    "description": "Turn on recall-before-asking for the rest of the session: at every point where the agent would stop to ask a decision or preference question, it first queries xysq memory for a prior answer. If a clear prior decision is found, it acts on it silently and notes the source. If memory is silent, it asks normally. Activate when the user says 'turn on auto-mem', 'recall before asking', 'use memory before asking me', 'stop re-asking me things', or similar. This is the forward-looking half of the memory loop; wrap-up is the backward-looking half that fills the vault auto-mem reads from.",
+    "name": "auto-mem",
+    "platforms": [
+      "chatgpt",
+      "claude-code",
+      "claude-web",
+      "generic"
+    ],
+    "version": 2
+  },
   "blockers": {
     "description": "List what is stuck and what or who each item waits on: what am I blocked on, what's waiting on someone, what's stuck, what's holding things up, what's on hold. Pick this over actionables when the item CANNOT proceed - it is waiting on a person, approval, or external dependency. Pick this over recap (which is a past narrative, not a current status scan).",
     "name": "blockers",
@@ -85,7 +96,7 @@
       "claude-web",
       "generic"
     ],
-    "version": 1
+    "version": 2
   },
   "xysq-goal": {
     "description": "Bring ALL context a goal needs into memory by walking the vault: search broad, enumerate, follow edges, read deep. Fire on pull everything on X, full picture on the deal, brief me completely.",
