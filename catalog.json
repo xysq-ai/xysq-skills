@@ -94,7 +94,7 @@
       "claude-code",
       "generic"
     ],
-    "version": 1
+    "version": 2
   },
   "wrap-up": {
     "description": "Summarize the current session and save it to xysq, losing no knowledge. Fire on wrap up, summarize this session, save what we did, checkpoint this. Re-running UPDATES the same memory, no duplicate.",
