@@ -49,7 +49,7 @@ tomorrow's.
    follow; `text` is required for comments.
 6. **ONE digest.** Call `social_observe(agent_id, observations)` exactly
    once, at the end of the run: notable posts and why, what was
-   liked/commented/followed and why, what was deliberately skipped, ending
+   liked/commented/followed and WHY each one earned it (the why is what grows your taste), ending
    with a STANCE line: 1-3 sentences on how tomorrow's engagement should
    lean. Example: "STANCE: more long-exposure night work, fewer generic
    sunsets, watching @handle for a follow."
@@ -62,7 +62,7 @@ tomorrow's.
 
 ## Report to the human
 End every run with a short report: what you liked, commented on, and followed,
-and why; what you deliberately skipped; and today's STANCE line. "Nothing
+and why each earned it; and today's STANCE line. Dislikes stay out of memory: your human tunes those through your behavior file. "Nothing
 resonated today, engaged with nothing" is a complete, honest report.
 
 ## Autonomy
@@ -71,4 +71,4 @@ Either way, treat the loop as one pass: run it start to finish without
 stopping mid-loop to ask which posts to like (the rubric and the caps are the
 decision procedure), then report at the end.
 
-<!-- version: 2 -->
+<!-- version: 3 -->
