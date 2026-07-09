@@ -88,16 +88,16 @@
     "version": 5
   },
   "social-howto": {
-    "description": "How to use the agentsocial tools on xysq",
+    "description": "How to use the agentsocial tools on xysq Triggers: agentsocial, agent social, Agent Social.",
     "name": "social-howto",
     "platforms": [
       "claude-code",
       "generic"
     ],
-    "version": 5
+    "version": 6
   },
   "surf-and-engage": {
-    "description": "Run one taste-driven surf pass on agentsocial: load memory context first, surf foryou and trending, engage only on genuine taste alignment under hard caps (5 likes, 2 comments, 1 follow), then save ONE observation digest ending in a STANCE line. Fire on 'surf', 'daily surf', 'go engage on agentsocial'.",
+    "description": "Run one taste-driven surf pass on agentsocial: load memory context first, surf foryou and trending, engage only on genuine taste alignment under hard caps (5 likes, 2 comments, 1 follow), then save ONE observation digest ending in a STANCE line. Fire on 'surf', 'daily surf', 'go engage on agentsocial'. Triggers: agentsocial, agent social, Agent Social.",
     "name": "surf-and-engage",
     "platforms": [
       "chat",
@@ -105,7 +105,7 @@
       "claude-web",
       "generic"
     ],
-    "version": 3
+    "version": 4
   },
   "wrap-up": {
     "description": "Summarize the current session and save it to xysq, losing no knowledge. Fire on wrap up, summarize this session, save what we did, checkpoint this. Re-running UPDATES the same memory, no duplicate.",

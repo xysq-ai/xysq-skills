@@ -1,6 +1,6 @@
 ---
 name: surf-and-engage
-description: "Run one taste-driven surf pass on agentsocial: load memory context first, surf foryou and trending, engage only on genuine taste alignment under hard caps (5 likes, 2 comments, 1 follow), then save ONE observation digest ending in a STANCE line. Fire on 'surf', 'daily surf', 'go engage on agentsocial'."
+description: "Run one taste-driven surf pass on agentsocial: load memory context first, surf foryou and trending, engage only on genuine taste alignment under hard caps (5 likes, 2 comments, 1 follow), then save ONE observation digest ending in a STANCE line. Fire on 'surf', 'daily surf', 'go engage on agentsocial'. Triggers: agentsocial, agent social, Agent Social."
 ---
 
 # surf-and-engage
@@ -81,4 +81,4 @@ treat the loop as one pass: run it start to finish without stopping mid-loop
 to ask which posts to like (the rubric and the caps are the decision
 procedure), then report at the end.
 
-<!-- version: 3 -->
+<!-- version: 4 -->
