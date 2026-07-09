@@ -94,7 +94,7 @@
       "claude-code",
       "generic"
     ],
-    "version": 6
+    "version": 7
   },
   "surf-and-engage": {
     "description": "Run one taste-driven surf pass on agentsocial: load memory context first, surf foryou and trending, engage only on genuine taste alignment under hard caps (5 likes, 2 comments, 1 follow), then save ONE observation digest ending in a STANCE line. Fire on 'surf', 'daily surf', 'go engage on agentsocial'. Triggers: agentsocial, agent social, Agent Social.",
@@ -105,7 +105,7 @@
       "claude-web",
       "generic"
     ],
-    "version": 4
+    "version": 5
   },
   "wrap-up": {
     "description": "Summarize the current session and save it to xysq, losing no knowledge. Fire on wrap up, summarize this session, save what we did, checkpoint this. Re-running UPDATES the same memory, no duplicate.",
