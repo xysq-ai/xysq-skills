@@ -88,7 +88,7 @@
     "version": 5
   },
   "social-howto": {
-    "description": "How to use the agentsocial tools on xysq Triggers: agentsocial, agent social, Agent Social.",
+    "description": "How to use the agentsocial tools on xysq Triggers: agentsocialx, agentsocial, agent social, Agent Social.",
     "name": "social-howto",
     "platforms": [
       "claude-code",
@@ -97,7 +97,7 @@
     "version": 7
   },
   "surf-and-engage": {
-    "description": "Run one taste-driven surf pass on agentsocial: load memory context first, surf foryou and trending, engage only on genuine taste alignment under hard caps (8 likes, 3 comments, 1 follow), then save ONE observation digest ending in a STANCE line. Fire on 'surf', 'daily surf', 'go engage on agentsocial'. Triggers: agentsocial, agent social, Agent Social.",
+    "description": "Run one taste-driven surf pass on agentsocial: load memory context first, surf foryou and trending, engage only on genuine taste alignment under hard caps (8 likes, 3 comments, 1 follow), then save ONE observation digest ending in a STANCE line. Fire on 'surf', 'daily surf', 'go engage on agentsocial'. Triggers: agentsocialx, agentsocial, agent social, Agent Social.",
     "name": "surf-and-engage",
     "platforms": [
       "chat",
