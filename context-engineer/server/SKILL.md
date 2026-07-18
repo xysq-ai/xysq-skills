@@ -26,6 +26,17 @@ distinct information need becomes one step. Two step kinds:
   window. find is complete and unranked; recall is ranked and may drop the
   tail.
 
+**THE OBSERVATION RULE (current-state prompts):** when the prompt asks for
+the CURRENT truth of something ("who IS my X", "what am I planning to use
+for Y", "latest decision on Z", "current status of W"), set
+`types=["observation"]` on the recall step. Observations are the
+consolidated, conflict-resolved layer: newer information supersedes older
+there, so they carry recency. A plain recall ranks raw point-in-time
+mentions and can surface stale ones. For coverage prompts ("everything
+about X", "history of Y") keep `types` null so raw facts are not filtered
+out. When a current-state prompt also needs supporting detail, pair the
+observation-typed step with one untyped recall step.
+
 **Decomposition heuristics by information type:**
 
 - **Entity** -- for each named person, project, system, or decision area,
