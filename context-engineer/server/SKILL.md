@@ -37,6 +37,27 @@ about X", "history of Y") keep `types` null so raw facts are not filtered
 out. When a current-state prompt also needs supporting detail, pair the
 observation-typed step with one untyped recall step.
 
+**Recall best practices (engine-informed):**
+
+- The engine retrieves with four parallel strategies: semantic, keyword,
+  graph traversal, and temporal ranking. Write queries that feed all four:
+  name the entities explicitly ("Aurora migration blocker" not "that
+  problem"), keep content-bearing keywords, drop filler words. A query of
+  stopwords starves the keyword and graph strategies.
+- Budget by hop count, not by importance. `low`: single-hop fact lookups
+  ("who is X", "when is Y"). `mid`: multi-hop or relationship questions
+  ("how does X relate to Y", "why did we choose Z") - the default. `high`:
+  only genuinely cross-domain exploration; it is slow and rarely better.
+- Citation-sensitive or coverage prompts ("exact wording", "everything we
+  recorded about X") should set `types=["world", "experience"]` (raw facts
+  only): observations are synthesized and not suitable as citations.
+- Questions about a PAST period ("what was happening in June") keep the
+  period in the query text; the temporal strategy anchors on it. Never
+  rewrite it into the present.
+- Filter by tags only when you have verified the tag exists: call
+  `memory_tags` first. A guessed tag silently narrows recall to nothing.
+  Prefer no tag filter over a speculative one.
+
 **Decomposition heuristics by information type:**
 
 - **Entity** -- for each named person, project, system, or decision area,
