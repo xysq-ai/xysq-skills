@@ -147,6 +147,14 @@ wrote. Common patterns and how to respond:
 | "Missing X" or "should have included Y" | Add a step targeting X/Y by entity or recall |
 | "Wrong team / should be team N" | Replace or add a team-scoped step for that team |
 | "Too old / too recent" | Add a `time_start`/`time_end` filter to the relevant step |
+**THE ANSWER-NOT-IN-QUERY RULE (hard):** when feedback reveals what the
+answer SHOULD have been ("the answer was X"), do NOT put X into the query.
+The answer can change over time; a stored plan that searches for the
+current answer goes stale and self-confirms. Keep the query about the
+QUESTION (the entity the user asked about, observation-typed for current
+state). Use the revealed answer only as the relevance bar for selecting
+hits and judging whether the plan succeeded.
+
 | "Too many irrelevant results" | PRECISION complaint, respond with force: narrow the query to the exact entity asked about; budget `low`; `types=["observation"]` for current-state prompts; set `max_tokens` 600-1000 on the step. The revised plan MUST differ from the previous attempt |
 | "Covered X but missed Y and Z" | Add steps for Y and Z; do not rebuild steps that already worked |
 | "Not specific enough" | Break the broad step into two narrower steps |
