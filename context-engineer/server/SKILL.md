@@ -18,11 +18,13 @@ user's verdict. You never edit this skill file; learning is data, not code.
 Read the prompt and identify what the user actually needs to know. Each
 distinct information need becomes one step. Two step kinds:
 
-- `recall` -- vector search over the vault. Use when the need is semantic:
-  "what did I decide about X", "notes on Y", "context for Z".
-- `find` -- filtered enumeration. Use when you have a concrete handle:
-  a named entity, a tag, a kind, a time window. find is complete and
-  unranked; recall is ranked and may drop the tail.
+- `recall` -- vector search over the vault. Execute with `scoped_recall`.
+  Use when the need is semantic: "what did I decide about X", "notes on
+  Y", "context for Z".
+- `find` -- filtered enumeration. Execute with `scoped_vault_find`. Use
+  when you have a concrete handle: a named entity, a tag, a kind, a time
+  window. find is complete and unranked; recall is ranked and may drop the
+  tail.
 
 **Decomposition heuristics by information type:**
 
@@ -74,6 +76,10 @@ stay personal.
 When including teams, scope each step to the minimum set: the specific
 team named in the prompt, not all teams. Pass `team_ids=[<id>]` (recall)
 or `team_id=<id>` (find) rather than broadcasting to every team.
+
+When the answer should come only from the user's personal vault, set
+`personal_only=true` and leave `team_ids` (recall) or `team_id` (find)
+empty. Never combine `personal_only=true` with a team_ids/team_id value.
 
 ### THE DEIXIS RULE (hard, no exceptions)
 
