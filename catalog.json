@@ -34,6 +34,14 @@
     ],
     "version": 5
   },
+  "context-engineer": {
+    "description": "Plan and repair memory queries for the Context Playground: decompose a prompt into typed recall and find steps, select budgets and team scope, repair from feedback, and maintain the per-user topic tree.",
+    "name": "context-engineer",
+    "platforms": [
+      "server"
+    ],
+    "version": 1
+  },
   "core": {
     "description": "Persistent memory for your assistant. Fire on remember, recall, save this, what did I tell you about, or references to past decisions/preferences. Also after any correction or decision, to persist it.",
     "name": "xysq",
