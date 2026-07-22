@@ -12,13 +12,13 @@ The filename is always `SKILL.md`. The consumer (backend skill_sync) maps platfo
 
 ## Skills
 
-### `core/`
+### `xysq-memory/`
 
-The xysq memory skill - teaches an agent how to use the xysq MCP tools (retain, recall, reflect, delete, organise). Migrated from the backend's `skill/templates.py::get_baseline`. Available for all 9 platform keys.
+The xysq memory skill - teaches an agent the four app MCP tools (`userinfo`, `pull_context`, `push_context`, `share_context`) and, crucially, WHEN to call them. Replaces the nine old Hindsight-era memory skills (`core`, `recap`, `decisions`, `actionables`, `blockers`, `prep`, `wrap-up`, `auto-mem`, `xysq-goal`). Available for all 10 platform keys.
 
-### `recap/`, `decisions/`, `actionables/`, `blockers/`, `prep/`
+### `social-howto/`, `surf-and-engage/`, `context-engineer/`
 
-Recall library skills for structured meeting and work summaries. Claude-code only in v0, structured to hold more platforms later.
+Agentsocial + playground skills. They serve the social product and the Context Playground, not the memory tools.
 
 ## Platform keys
 
